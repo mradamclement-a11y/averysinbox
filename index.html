@@ -572,18 +572,11 @@ body::after {
   background: transparent;
 }
 .outcome-panel.show { display: block; }
-.outcome-card.highlight { animation: outcomeHighlight 1.2s ease; }
-@keyframes outcomeHighlight {
-  0% { box-shadow: var(--shadow), 0 0 0 0 rgba(184, 50, 50, 0.4); }
-  35% { box-shadow: var(--shadow), 0 0 0 8px rgba(184, 50, 50, 0.15); }
-  100% { box-shadow: var(--shadow); }
-}
 
 .outcome-card {
   background: var(--surface);
   width: 100%;
   border: 1px solid var(--border2);
-  border-left: 3px solid var(--red);
   border-radius: 6px;
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -611,6 +604,17 @@ body::after {
   content: '✉';
   font-size: 14px;
   opacity: 0.9;
+  display: inline-block;
+}
+.outcome-notification-bar.draw-attention::before {
+  animation: envelopeAttention 1.4s ease-out;
+}
+@keyframes envelopeAttention {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  20% { transform: scale(1.4); opacity: 1; }
+  35% { transform: scale(0.95); }
+  50% { transform: scale(1.2); }
+  70% { transform: scale(1.05); }
 }
 
 .outcome-top {
@@ -749,6 +753,68 @@ body::after {
   max-width: 680px;
   margin: 0 auto;
 }
+.profile-btec-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 12px;
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+}
+.profile-btec-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.profile-btec-aim {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+.profile-learning-aim {
+  margin-bottom: 28px;
+  padding: 18px;
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid rgba(184,50,50,0.6);
+  border-radius: 0 4px 4px 0;
+}
+.profile-learning-aim .learning-aim-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+.profile-learning-aim .learning-aim-text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.65);
+}
+.profile-threats {
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.profile-threats-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 12px;
+}
+.profile-threats-list {
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  padding-left: 18px;
+}
 .profile-eyebrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -815,7 +881,48 @@ body::after {
 .obs-text { font-size: 13.5px; line-height: 1.8; color: rgba(255,255,255,0.65); }
 
 .profile-laws {
+  margin-bottom: 36px;
+}
+.profile-ai {
   margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+}
+.profile-ai-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 14px;
+}
+.profile-ai-loading {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+.profile-ai-section { margin-bottom: 18px; }
+.profile-ai-section:last-child { margin-bottom: 0; }
+.profile-ai-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+.profile-ai-summary,
+.profile-ai-laws {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+}
+.profile-ai-error {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
 }
 .profile-laws-title {
   font-family: 'JetBrains Mono', monospace;
@@ -876,6 +983,13 @@ body::after {
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.3);
+  margin-bottom: 6px;
+}
+.intro-aim {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.45);
   margin-bottom: 20px;
 }
 .intro-title {
@@ -1230,13 +1344,14 @@ body::after{ opacity: 0; }
 <div id="intro-overlay">
   <div class="intro-inner">
     <div class="intro-logo">Avery's Inbox — BTEC IT Unit 1</div>
+    <div class="intro-aim">Learning Aim D: Protecting data and information</div>
     <div class="intro-title">Twenty emails.<br>No right answers.</div>
     <div class="intro-body">
       You work in IT. Over the next few weeks, messages arrive in your inbox — from colleagues, automated systems, regulators, journalists. Each one puts you in the middle of a situation you didn't choose.<br><br>
       <strong>You will decide what to do.</strong> Who you tell. Whether to act. Whether to stay silent. The law will be available to read before you decide — but the law doesn't always point in one direction.
     </div>
     <div class="intro-note">
-      Covers: DPA 2018 · UK GDPR · Computer Misuse Act 1990 · RIPA 2000 · FOI Act 2000<br>
+      Covers: DPA 2018 · UK GDPR · Computer Misuse Act 1990 · RIPA 2000 · FOI Act 2000 · IPA 2016 · NIS Regulations<br>
       Copyright, Designs &amp; Patents Act 1988 · Health &amp; Safety at Work Act 1974 · PIDA 1998<br>
       <span class="intro-disclaimer">exeLook is a fictional parody interface for education. Not affiliated with Microsoft or Outlook.</span>
     </div>
@@ -1347,7 +1462,7 @@ body::after{ opacity: 0; }
 <div class="leg-panel collapsed">
   <div class="outcome-panel" id="outcome-panel">
     <div class="outcome-card" id="outcome-card">
-      <div class="outcome-notification-bar">New reply — outcome</div>
+      <div class="outcome-notification-bar" id="outcome-notification-bar">New reply — outcome</div>
       <div class="outcome-top">
         <div class="outcome-law-label" id="out-law-label"></div>
         <div class="outcome-sent-to" id="out-sent-to"></div>
@@ -1392,17 +1507,38 @@ body::after{ opacity: 0; }
 <!-- PROFILE OVERLAY -->
 <div id="profile-overlay">
   <div class="profile-inner">
+    <div class="profile-btec-banner">
+      <span class="profile-btec-badge">BTEC Level 3 — Unit 1</span>
+      <span class="profile-btec-aim">Learning Aim D: Protecting data and information</span>
+    </div>
     <div class="profile-eyebrow">Avery's Inbox — Your Decision Profile</div>
     <div class="profile-title" id="prof-title"></div>
     <div class="profile-summary" id="prof-summary"></div>
     <div class="profile-stats" id="prof-stats"></div>
+    <div class="profile-learning-aim" id="prof-learning-aim"></div>
     <div class="profile-observations">
       <div class="profile-obs-title">Patterns in your decisions</div>
       <div id="prof-observations"></div>
     </div>
+    <div class="profile-threats" id="prof-threats"></div>
     <div class="profile-laws">
-      <div class="profile-laws-title">Legislation encountered</div>
+      <div class="profile-laws-title">Legislation encountered (Unit 1 — F2 Legal issues)</div>
       <div id="prof-laws"></div>
+    </div>
+    <div class="profile-ai" id="prof-ai">
+      <div class="profile-ai-title">AI reflection</div>
+      <div class="profile-ai-loading" id="prof-ai-loading">Generating your summary…</div>
+      <div class="profile-ai-content" id="prof-ai-content" style="display:none">
+        <div class="profile-ai-section">
+          <div class="profile-ai-label">Your moral profile</div>
+          <div class="profile-ai-summary" id="prof-ai-moral"></div>
+        </div>
+        <div class="profile-ai-section">
+          <div class="profile-ai-label">Laws and your decisions</div>
+          <div class="profile-ai-laws" id="prof-ai-laws"></div>
+        </div>
+      </div>
+      <div class="profile-ai-error" id="prof-ai-error" style="display:none"></div>
     </div>
     <button class="restart-btn" onclick="restartApp()">Start again</button>
   </div>
@@ -2090,12 +2226,18 @@ function showOutcome(sc, choice) {
   document.getElementById('out-law-note').textContent = choice.lawNote;
 
   const outPanel = document.getElementById('outcome-panel');
-  const outCard = document.getElementById('outcome-card');
+  const notifBar = document.getElementById('outcome-notification-bar');
   outPanel.classList.add('show');
-  outCard.classList.remove('highlight');
-  outPanel.offsetHeight;
-  outCard.classList.add('highlight');
-  setTimeout(() => outCard.classList.remove('highlight'), 1200);
+  if (notifBar) {
+    notifBar.classList.remove('draw-attention');
+    notifBar.offsetHeight;
+    notifBar.classList.add('draw-attention');
+    const onEnd = () => {
+      notifBar.removeEventListener('animationend', onEnd);
+      notifBar.classList.remove('draw-attention');
+    };
+    notifBar.addEventListener('animationend', onEnd);
+  }
 
   document.getElementById('next-btn').onclick = () => {
     document.getElementById('outcome-panel').classList.remove('show');
@@ -2147,28 +2289,31 @@ function updateProgress() {
 function showProfile() {
   const r = counters.report, l = counters.leak, s = counters.silence;
   const total = r + l + s;
+  const n = SCENARIOS.length;
 
   // Determine dominant tendency
   let title, summary;
   const sorted = [['report',r],['leak',l],['silence',s]].sort((a,b) => b[1]-a[1]);
   const dominant = sorted[0][0];
   const second = sorted[1][0];
+  const reportThreshold = Math.ceil(n * 0.55);
+  const leakSilenceThreshold = Math.ceil(n * 0.45);
 
-  if (dominant === 'report' && r >= 6) {
+  if (dominant === 'report' && r >= reportThreshold) {
     title = 'The Institutionalist';
-    summary = `You reached for the official channel in ${r} out of 10 situations. You trust institutions — or at least you trust the process. Most of the time that\'s not naivety. Institutions do sometimes work. But the official channel is also the one the institution controls. You might want to think about who benefits when you stay inside the system.`;
-  } else if (dominant === 'leak' && l >= 5) {
+    summary = `You reached for the official channel in ${r} out of ${n} situations. You trust institutions — or at least you trust the process. Most of the time that's not naivety. Institutions do sometimes work. But the official channel is also the one the institution controls. You might want to think about who benefits when you stay inside the system.`;
+  } else if (dominant === 'leak' && l >= leakSilenceThreshold) {
     title = 'The Exposer';
-    summary = `You bypassed the system ${l} times. You probably have a clear sense of when the rules are protecting people and when they\'re protecting the organisation. The question is whether the harm you caused in bypassing was worth it each time — and whether the people affected had a say in that calculation.`;
-  } else if (dominant === 'silence' && s >= 5) {
+    summary = `You bypassed the system ${l} times. You probably have a clear sense of when the rules are protecting people and when they're protecting the organisation. The question is whether the harm you caused in bypassing was worth it each time — and whether the people affected had a say in that calculation.`;
+  } else if (dominant === 'silence' && s >= leakSilenceThreshold) {
     title = 'The Pragmatist';
-    summary = `You stayed silent ${s} times. That\'s not cowardice — it\'s an assessment of odds and consequences. The question isn\'t whether you were wrong. The question is what silence costs the next person who ends up in the same situation, and whether they\'ll get a choice.`;
+    summary = `You stayed silent ${s} times. That's not cowardice — it's an assessment of odds and consequences. The question isn't whether you were wrong. The question is what silence costs the next person who ends up in the same situation, and whether they'll get a choice.`;
   } else if (dominant === 'report' && second === 'leak') {
     title = 'The Reluctant Channeller';
     summary = `You mostly used official channels, but went around them ${l} times. Those ${l} exceptions are probably the most interesting part of your profile. What was different about those situations? The answer might tell you more about your actual values than the ${r} times you did the expected thing.`;
   } else if (dominant === 'leak' && second === 'report') {
     title = 'The Selective Exposer';
-    summary = `You leaked more than you reported. But you did use official channels ${r} times — which means you haven\'t written the system off entirely. You appear to make a distinction. What\'s the principle? If you can articulate it, it\'s a value. If you can\'t, it might be a mood.`;
+    summary = `You leaked more than you reported. But you did use official channels ${r} times — which means you haven't written the system off entirely. You appear to make a distinction. What's the principle? If you can articulate it, it's a value. If you can't, it might be a mood.`;
   } else {
     title = 'The Uncommitted';
     summary = `You spread your choices roughly evenly — ${r} official, ${l} bypassed, ${s} silent. That could mean genuine case-by-case reasoning, or it could mean the situations felt similar but your responses varied anyway. Look at the patterns below and see if you can explain them.`;
@@ -2191,6 +2336,39 @@ function showProfile() {
       <div class="stat-n">${s}</div>
       <div class="stat-label">Stayed silent — did nothing, deferred, deleted the email</div>
     </div>
+  `;
+
+  // Learning Aim D — how this activity supports Unit 1
+  const learningAimEl = document.getElementById('prof-learning-aim');
+  learningAimEl.innerHTML = `
+    <div class="learning-aim-title">How this supports Unit 1: Information Technology Systems — Learning Aim D</div>
+    <div class="learning-aim-text">
+      <strong>Learning Aim D: Protecting data and information</strong> covers the issues and implications of storing and transmitting information in digital form. In this activity you made decisions in scenarios that involved:
+      <br><br>
+      <strong>D1 — Threats to data, information and systems:</strong> You encountered situations involving unauthorised access, accidental disclosure, stealing or leaking information, and the impact on individuals and organisations (loss of data, financial loss, loss of trust). Your choices reflected how you weigh different threats and responses.
+      <br><br>
+      <strong>D2 — Protecting data:</strong> The scenarios touched on access levels, lawful bases for processing, and the role of regulators and formal channels in protecting data. Choosing to report, leak, or stay silent is a practical application of how individuals and organisations respond to threats.
+      <br><br>
+      <strong>F2 — Legal issues (Unit 1):</strong> You applied knowledge of legislation that protects IT systems, users and data — including data protection legislation, computer misuse legislation, copyright, health and safety, and whistleblowing law. The legislation list below maps your decisions to the laws you encountered.
+    </div>
+  `;
+
+  // Threats encountered (D1) — from the laws/scenarios they actually did
+  const threatsEl = document.getElementById('prof-threats');
+  const threatLabels = [];
+  const lawsSeen = [...new Set(decisions.map(d => d.law))];
+  if (lawsSeen.some(l => l.includes('DPA') || l.includes('GDPR'))) threatLabels.push('Accidental or unlawful disclosure of personal/special category data (D1.2.2)');
+  if (lawsSeen.some(l => l.includes('CMA') || l.includes('Computer Misuse'))) threatLabels.push('Unauthorised access to computer material (D1.1.2)');
+  if (lawsSeen.some(l => l.includes('leak') || l.includes('PIDA'))) threatLabels.push('Stealing or leaking information (D1.2.3)');
+  if (lawsSeen.some(l => l.includes('RIPA') || l.includes('Investigatory'))) threatLabels.push('Monitoring and interception of communications');
+  if (lawsSeen.some(l => l.includes('FOI') || l.includes('Public Record'))) threatLabels.push('Destruction or withholding of information subject to legal obligation');
+  if (lawsSeen.some(l => l.includes('Safety') || l.includes('HSE'))) threatLabels.push('Health and safety / safe systems of work');
+  if (threatLabels.length === 0) threatLabels.push('Various threats to data and systems relevant to Learning Aim D1.');
+  threatsEl.innerHTML = `
+    <div class="profile-threats-title">Threats and issues you encountered (Unit 1 — D1)</div>
+    <ul class="profile-threats-list">
+      ${threatLabels.map(t => `<li>${t}</li>`).join('')}
+    </ul>
   `;
 
   // Observations
@@ -2246,7 +2424,16 @@ function showProfile() {
     'DPA + RIPA (conflict)': 'Monitoring may be RIPA-lawful but the resulting data is still subject to DPA restrictions on further processing.',
     'CMA 1990 (retrospective)': 'Past unauthorised access does not disappear. New legal obligations (witness statements) can interact with old exposures.',
     'DPA + FOI (conflict)': 'FOI s.40 resolves most DPA/FOI conflicts: personal data is withheld where disclosure would breach GDPR. The conflict is usually apparent, not real.',
-    'PIDA 1998 — The Long View': 'Protects qualifying disclosures in good faith. Creates a right, not a duty. Protection is retrospective — it does not prevent detriment, it provides remedy.'
+    'PIDA 1998 — The Long View': 'Protects qualifying disclosures in good faith. Creates a right, not a duty. Protection is retrospective — it does not prevent detriment, it provides remedy.',
+    'UK GDPR Art. 22 — Automated Decision-Making': 'Individuals have the right not to be subject to decisions based solely on automated processing with significant effects. Human review must be meaningful.',
+    'Investigatory Powers Act 2016': 'Unlawful interception of communications without a warrant or statutory authority. Verbal authorisation is not sufficient. IPCO oversees use of investigatory powers.',
+    'Employment Rights Act 1996 s.98 + DPA 2018': 'Redundancy and employment decisions using personal data must be transparent and non-discriminatory. Equality Act and UK GDPR apply.',
+    'Computer Misuse Act 1990 + PIDA 1998': 'Unauthorised access remains an offence; PIDA may protect disclosure to prescribed regulators. Reporting credible threats does not require you to have accessed systems yourself.',
+    'Equality Act 2010 + DPA 2018': 'Subject access rights are absolute. Misrepresenting what data is held can obstruct data subject rights.',
+    'Network and Information Systems Regulations 2018': 'Operators of essential services must notify the competent authority of incidents with significant impact. The authority assesses the threshold.',
+    'Regulation of Investigatory Powers Act 2000 + Human Rights Act 1998': 'Covert monitoring to identify a whistleblower may be unlawful. Art. 8 protects private communications.',
+    'Public Records Act 1958 + FOI Act 2000': 'Destroying records with the intention of preventing disclosure is a criminal offence under FOI s.77.',
+    'DPA 2018 + Mental Health Units (Use of Force) Act 2018': 'Destroying data subject to a subject access request is an offence. Statutory retention obligations override local deletion policies.'
   };
 
   lawsEl.innerHTML = Object.entries(lawGroups).map(([law, types]) => {
@@ -2261,7 +2448,48 @@ function showProfile() {
     `;
   }).join('');
 
+  // AI reflection: show loading, then fetch summary
+  const aiLoading = document.getElementById('prof-ai-loading');
+  const aiContent = document.getElementById('prof-ai-content');
+  const aiError = document.getElementById('prof-ai-error');
+  const aiMoral = document.getElementById('prof-ai-moral');
+  const aiLaws = document.getElementById('prof-ai-laws');
+
+  aiLoading.style.display = 'block';
+  aiContent.style.display = 'none';
+  aiError.style.display = 'none';
+  aiError.textContent = '';
+
   document.getElementById('profile-overlay').classList.add('show');
+
+  const lawsEncountered = [...new Set(decisions.map(d => d.law))];
+  fetch('api/profile-summary.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      decisions,
+      counters,
+      profileTitle: title,
+      lawsEncountered
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      aiLoading.style.display = 'none';
+      if (data.error) {
+        aiError.textContent = data.error;
+        aiError.style.display = 'block';
+      } else {
+        aiMoral.textContent = data.moralSummary || '';
+        aiLaws.textContent = data.lawsExplanation || '';
+        aiContent.style.display = 'block';
+      }
+    })
+    .catch(() => {
+      aiLoading.style.display = 'none';
+      aiError.textContent = 'Summary unavailable. Check that the app is served via a server with PHP and that the Groq API key is set in .env.php.';
+      aiError.style.display = 'block';
+    });
 }
 
 function restartApp() {
