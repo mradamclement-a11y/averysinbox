@@ -372,6 +372,12 @@ body::after {
 }
 .reply-opt:hover { border-color: var(--border2); background: rgba(0,0,0,0.02); }
 .reply-opt.selected { border-color: var(--red); background: var(--red-soft); }
+.reply-options-locked .reply-opt {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.75;
+}
+.reply-options-locked .reply-opt:hover { border-color: var(--border); background: var(--bg); }
 .opt-radio {
   width: 14px; height: 14px; border-radius: 50%;
   border: 1.5px solid var(--faint); flex-shrink: 0; margin-top: 2px;
@@ -422,6 +428,10 @@ body::after {
   align-items: center;
   justify-content: flex-end;
 }
+.send-zone {
+  padding: 16px 8px 8px 24px;
+  margin: -16px -8px -8px -24px;
+}
 .send-btn {
   background: var(--red);
   color: #fff;
@@ -458,7 +468,30 @@ body::after {
   position: sticky;
   top: 0;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
 }
+.leg-header:hover { background: rgba(0,0,0,0.02); }
+.leg-header-left { flex: 1; min-width: 0; }
+.leg-panel.collapsed .leg-body { display: none; }
+.leg-toggle {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: var(--faint);
+  font-size: 12px;
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+.leg-header:hover .leg-toggle { color: var(--muted); }
+.leg-panel.collapsed .leg-toggle { transform: rotate(-90deg); }
 .leg-title {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -531,30 +564,57 @@ body::after {
 .empty-icon { font-size: 28px; margin-bottom: 10px; }
 .empty-text { font-size: 12px; color: var(--faint); line-height: 1.7; }
 
-/* ── OUTCOME PANEL (top of right-hand column) ── */
+/* ── OUTCOME PANEL (incoming-email style notification) ── */
 .outcome-panel {
   display: none;
   flex-shrink: 0;
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  max-height: min(65vh, 420px);
-  overflow-y: auto;
+  background: transparent;
 }
 .outcome-panel.show { display: block; }
+.outcome-card.highlight { animation: outcomeHighlight 1.2s ease; }
+@keyframes outcomeHighlight {
+  0% { box-shadow: var(--shadow), 0 0 0 0 rgba(184, 50, 50, 0.4); }
+  35% { box-shadow: var(--shadow), 0 0 0 8px rgba(184, 50, 50, 0.15); }
+  100% { box-shadow: var(--shadow); }
+}
 
 .outcome-card {
   background: var(--surface);
   width: 100%;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  box-shadow: none;
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--red);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
   overflow: hidden;
-  animation: slideDown 0.25s ease;
+  animation: outcomeSlideIn 0.35s ease;
 }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes outcomeSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.outcome-notification-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 10px;
+  background: var(--red-soft);
+  border-bottom: 1px solid rgba(184, 50, 50, 0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.outcome-notification-bar::before {
+  content: '✉';
+  font-size: 14px;
+  opacity: 0.9;
+}
 
 .outcome-top {
-  padding: 16px 18px 12px;
+  padding: 14px 18px 12px;
   border-bottom: 1px solid var(--border);
   position: relative;
 }
@@ -1276,15 +1336,18 @@ body::after{ opacity: 0; }
       <div class="reply-options" id="reply-options"></div>
     </div>
     <div class="send-row">
-      <button class="send-btn" id="send-btn">Send</button>
+      <div class="send-zone" id="send-zone">
+        <button class="send-btn" id="send-btn">Send</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- LEGISLATION PANEL (right-hand column) -->
-<div class="leg-panel">
+<div class="leg-panel collapsed">
   <div class="outcome-panel" id="outcome-panel">
     <div class="outcome-card" id="outcome-card">
+      <div class="outcome-notification-bar">New reply — outcome</div>
       <div class="outcome-top">
         <div class="outcome-law-label" id="out-law-label"></div>
         <div class="outcome-sent-to" id="out-sent-to"></div>
@@ -1308,9 +1371,12 @@ body::after{ opacity: 0; }
       </div>
     </div>
   </div>
-  <div class="leg-header" id="leg-header">
-    <div class="leg-title">Legislation</div>
-    <div class="leg-act-name" id="leg-act-name" style="color:var(--faint);font-size:12px">Open a message to see relevant law</div>
+  <div class="leg-header" id="leg-header" title="Click to expand or collapse">
+    <div class="leg-header-left">
+      <div class="leg-title">Legislation</div>
+      <div class="leg-act-name" id="leg-act-name" style="color:var(--faint);font-size:12px">Open a message to see relevant law</div>
+    </div>
+    <div class="leg-toggle" id="leg-toggle" aria-hidden="true">▼</div>
   </div>
   <div class="leg-body" id="leg-body">
     <div class="empty-state">
@@ -1598,6 +1664,23 @@ function wireUI() {
     });
   }
 
+  // Legislation panel collapse
+  const legPanel = document.getElementById('leg-header');
+  if (legPanel) {
+    legPanel.addEventListener('click', () => {
+      const panel = legPanel.closest('.leg-panel');
+      if (panel) panel.classList.toggle('collapsed');
+    });
+  }
+
+  // Hide hover toast when mouse is near Send button
+  const sendZone = document.getElementById('send-zone');
+  if (sendZone) {
+    sendZone.addEventListener('mouseenter', () => {
+      document.getElementById('hover-preview').classList.remove('show');
+    });
+  }
+
   // Help modal
   const helpBtn = document.getElementById('btn-help');
   const help = document.getElementById('help-overlay');
@@ -1859,6 +1942,8 @@ function positionHoverPreview(el, clientX, clientY) {
 function buildReplyOptions(sc) {
   const container = document.getElementById('reply-options');
   const prev = document.getElementById('hover-preview');
+  const wrap = document.getElementById('reply-options-wrap');
+  if (wrap) wrap.classList.remove('reply-options-locked');
   container.innerHTML = '';
 
   let hidePreviewTimer = null;
@@ -1977,6 +2062,12 @@ function sendChoice(sc, choice) {
   const lawEl = document.getElementById('law-' + sc.law.replace(/\s+/g,'_'));
   if (lawEl) lawEl.classList.add('covered');
 
+  // Lock reply choices and hide toast
+  const replyWrap = document.getElementById('reply-options-wrap');
+  if (replyWrap) replyWrap.classList.add('reply-options-locked');
+  document.getElementById('send-btn').classList.remove('ready');
+  document.getElementById('hover-preview').classList.remove('show');
+
   // Persist + re-render threads (folder/search/filter may hide/show items)
   saveState();
   syncLawTagActive();
@@ -1998,7 +2089,13 @@ function showOutcome(sc, choice) {
   document.getElementById('out-later').textContent = choice.later;
   document.getElementById('out-law-note').textContent = choice.lawNote;
 
-  document.getElementById('outcome-panel').classList.add('show');
+  const outPanel = document.getElementById('outcome-panel');
+  const outCard = document.getElementById('outcome-card');
+  outPanel.classList.add('show');
+  outCard.classList.remove('highlight');
+  outPanel.offsetHeight;
+  outCard.classList.add('highlight');
+  setTimeout(() => outCard.classList.remove('highlight'), 1200);
 
   document.getElementById('next-btn').onclick = () => {
     document.getElementById('outcome-panel').classList.remove('show');
