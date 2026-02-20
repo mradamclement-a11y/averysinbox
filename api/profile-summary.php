@@ -124,7 +124,7 @@ BTEC IT ethical activity (Avery's Inbox). Student completed {$total} scenarios. 
 {$ctxBlock}By law:
 {$lawBlock}
 
-Reply with JSON only (no markdown), two keys: "moralSummary" (short paragraph to student, 3–5 sentences, their moral profile — institutions vs transparency vs risk); "lawsExplanation" (short paragraph, 3–5 sentences, how DPA/ICO, CMA, PIDA, FOI etc. apply to their choices, BTEC Unit 1 D/F2).
+Reply with JSON only (no markdown), two keys: "moralSummary" (short paragraph to student, 3–5 sentences, their moral profile — institutions vs transparency vs risk); "lawsExplanation" (short paragraph, 3–5 sentences, how DPA/ICO, CMA, PIDA, FOI etc. apply to their choices, BTEC Unit 1 D/F2). When referencing scenarios add 1 to the ID number.
 PROMPT;
 }
 

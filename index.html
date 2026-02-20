@@ -2171,32 +2171,10 @@ function sendChoice(sc, choice) {
   // Prevent double-sends if you reopen a completed message
   if (decisions.find(d => d.scenarioId === sc.id)) return;
 
-  // Record
+  // Record (thread list and selection stay unchanged until Next is clicked)
   decisions.push({ scenarioId: sc.id, type: choice.type, law: sc.law });
   counters[choice.type]++;
   sentCount++;
-
-  // Mark thread as read/done + add a decision badge
-  const thread = document.getElementById(`thread-${sc.id}`);
-  if (thread) {
-    thread.classList.add('read');
-    thread.classList.remove('active');
-
-    if (!thread.querySelector('.decision-pill')) {
-      const badge = document.createElement('div');
-      badge.className = `decision-pill ${choice.type}`;
-      badge.textContent = decisionLabel(choice.type);
-      thread.appendChild(badge);
-    }
-  }
-
-  // Update sidebar scores
-  updateScores();
-  updateProgress();
-
-  // Mark legislation as covered
-  const lawEl = document.getElementById('law-' + sc.law.replace(/\s+/g,'_'));
-  if (lawEl) lawEl.classList.add('covered');
 
   // Lock reply choices and hide toast
   const replyWrap = document.getElementById('reply-options-wrap');
@@ -2204,13 +2182,9 @@ function sendChoice(sc, choice) {
   document.getElementById('send-btn').classList.remove('ready');
   document.getElementById('hover-preview').classList.remove('show');
 
-  // Persist + re-render threads (folder/search/filter may hide/show items)
   saveState();
-  syncLawTagActive();
-  updateFilterRow();
-  renderThreads();
 
-  // Show outcome
+  // Show outcome; thread move + list refresh happen on Next
   showOutcome(sc, choice);
 }
 
@@ -2243,7 +2217,27 @@ function showOutcome(sc, choice) {
     document.getElementById('outcome-panel').classList.remove('show');
     document.getElementById('reply-panel').style.display = 'none';
 
-    // Refresh the list (Inbox view hides completed items)
+    // Only now: mark the just-completed thread as read, add pill, update scores, refresh list
+    const last = decisions[decisions.length - 1];
+    if (last) {
+      const thread = document.getElementById(`thread-${last.scenarioId}`);
+      if (thread) {
+        thread.classList.add('read');
+        thread.classList.remove('active');
+        if (!thread.querySelector('.decision-pill')) {
+          const badge = document.createElement('div');
+          badge.className = `decision-pill ${last.type}`;
+          badge.textContent = decisionLabel(last.type);
+          thread.appendChild(badge);
+        }
+      }
+      updateScores();
+      updateProgress();
+      const lawEl = document.getElementById('law-' + last.law.replace(/\s+/g, '_'));
+      if (lawEl) lawEl.classList.add('covered');
+    }
+    syncLawTagActive();
+    updateFilterRow();
     renderThreads();
 
     if (decisions.length >= SCENARIOS.length) {
@@ -2338,10 +2332,10 @@ function showProfile() {
     </div>
   `;
 
-  // Learning Aim D — how this activity supports Unit 1
+  // Learning Aims D & F2 — how this activity supports Unit 1
   const learningAimEl = document.getElementById('prof-learning-aim');
   learningAimEl.innerHTML = `
-    <div class="learning-aim-title">How this supports Unit 1: Information Technology Systems — Learning Aim D</div>
+    <div class="learning-aim-title">How this supports Unit 1: Information Technology Systems — Learning Aims D & F2</div>
     <div class="learning-aim-text">
       <strong>Learning Aim D: Protecting data and information</strong> covers the issues and implications of storing and transmitting information in digital form. In this activity you made decisions in scenarios that involved:
       <br><br>
