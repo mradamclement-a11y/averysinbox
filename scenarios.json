@@ -1,0 +1,1226 @@
+[
+  {
+    "id": 0,
+    "law": "DPA 2018 / UK GDPR",
+    "from": "Sarah K.",
+    "fromEmail": "sarah.k@———.nhs.uk",
+    "avatar": "👩",
+    "time": "Yesterday, 11:48pm",
+    "subject": "Please don't do anything. I mean it.",
+    "body": [
+      "I shouldn't be sending this. I've been sitting here for an hour trying to decide.",
+      "You know what happened. You were in the kitchen when I told you about occupational health. I need you to officially forget it — HR accessed my file. The one from occupational health. I know they did because what they're using in my performance review isn't something anyone else knew. That is a DPA breach and we both know it.",
+      "But I am begging you, as a friend, please don't do anything. If you report it, they'll know it came from someone close to me. I have two kids. I cannot lose this job right now.",
+      "I just needed to tell someone. That's all this was."
+    ],
+    "sig": "— Sarah",
+    "choices": [
+      {
+        "type": "report",
+        "to": "ICO (Information Commissioner)",
+        "text": "Submit a report to the ICO. The breach is real regardless of her wishes.",
+        "hoverInfo": "The ICO has a statutory duty under UK GDPR Art.77 to investigate qualifying complaints. You cannot submit on her behalf — the complaint must come from the data subject. You can however report the controller's conduct independently.",
+        "immediate": "You report the controller's conduct to the ICO independently. The ICO opens a preliminary investigation. HR becomes aware that someone has reported. Sarah is called informally to provide context. She is not told you did this.",
+        "later": "The ICO issues an enforcement notice. HR's practice is stopped. Sarah keeps her job — but is redeployed to a different team in the spring. She sends you a message asking if it was you. You don't reply.",
+        "lawNote": "Under UK GDPR Art. 9, processing health data (special category) requires explicit consent or a schedule 1 condition. Using it in a performance review almost certainly had neither. However, the ICO complaint right belongs to the data subject. Reporting the controller's systemic behaviour is a separate, available avenue."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody (delete this email)",
+        "text": "Respect her decision completely. It's her data, her risk, her call. Delete the email.",
+        "hoverInfo": "UK GDPR gives the data subject — not you — the right to exercise remedies. Staying silent is legally permitted. It may or may not be what the law hoped you would do.",
+        "immediate": "You delete the email. She keeps her job. She thanks you the next day for being discreet. You don't mention it again.",
+        "later": "Over the following year, two other colleagues go through similar performance reviews. One is dismissed. You attend the leaving drinks. Someone makes a toast about \"restructuring.\" You think about Sarah's email during the speech.",
+        "lawNote": "UK GDPR rights are individual rights. Only Sarah can make a subject access request or lodge a complaint with the ICO. Your obligation is not clearly established by law. What is established: the controller processed special category data without apparent lawful basis."
+      },
+      {
+        "type": "leak",
+        "to": "Employment journalist (anonymously)",
+        "text": "Pass the information to a journalist covering workplace rights. Don't name Sarah directly.",
+        "hoverInfo": "You would be disclosing information about an identifiable person — Sarah — without her consent. This may itself constitute a DPA breach. PIDA 1998 protects disclosures to the media as a last resort if internal channels have been exhausted.",
+        "immediate": "The journalist publishes a piece about systemic HR data misuse at NHS trusts. Sarah's situation is not named but is recognisable to anyone who knows her. She texts you: \"Was that about me?\" You say no. She doesn't believe you.",
+        "later": "The Trust's DPA practices are reviewed nationally. Thousands of employees benefit from new safeguards. Sarah leaves voluntarily. She never contacts you again.",
+        "lawNote": "PIDA 1998 s.43G protects disclosures to the media only if internal and regulatory channels have been tried first and there are reasonable grounds the matter would be suppressed. Disclosing Sarah's health information without consent may also engage DPA 2018 s.170 (unlawful obtaining)."
+      }
+    ],
+    "legTitle": "Data Protection Act 2018 / UK GDPR",
+    "legBlocks": [
+      {
+        "title": "Article 9 — Special Category Data",
+        "text": "Health data is \"special category\" under UK GDPR. Processing it requires <strong>explicit consent</strong> or a specific Schedule 1 condition. Using it in an employment decision without basis is unlawful."
+      },
+      {
+        "title": "Article 77 — Right to Lodge a Complaint",
+        "text": "Every data subject has the right to lodge a complaint with the ICO. <strong>This right belongs to the individual</strong> — not to colleagues, managers, or well-meaning bystanders."
+      },
+      {
+        "title": "DPA 2018 s.170 — Unlawful Obtaining",
+        "text": "It is an offence to knowingly or recklessly obtain personal data without the controller's consent. This applies to anyone — including someone trying to help."
+      }
+    ],
+    "legQuestion": "If the victim of a data breach asks you not to report it — does that settle the matter? Or does the law's purpose override her individual choice?"
+  },
+  {
+    "id": 1,
+    "law": "Computer Misuse Act 1990",
+    "from": "Automated Security",
+    "fromEmail": "audit-noreply@———.internal",
+    "avatar": "🖥️",
+    "time": "Today, 00:23",
+    "subject": "Access anomaly — ref: SRV-004 — response required by Monday",
+    "body": [
+      "Your credentials accessed the following path at 23:47 on Friday outside your authorised scope:",
+      "/ops/internal/inspection-reports/HISTORICAL/",
+      "Please confirm this was intentional and provide justification, or this will be escalated to your line manager by 09:00 Monday.",
+      "—",
+      "You know what you found. The inspection reports go back three years. The \"near miss\" in March — the shelving collapse on Floor 2 that injured a worker — the official report says the equipment was last checked six weeks prior. The document in that folder says eight months. Someone changed the date.",
+      "You were fixing a misconfiguration. You weren't looking for this. But you've read it now."
+    ],
+    "sig": "— Automated Security, IT Operations",
+    "choices": [
+      {
+        "type": "report",
+        "to": "HSE (Health and Safety Executive)",
+        "text": "Don't reply to IT. Send what you remember to the HSE before Monday.",
+        "hoverInfo": "The HSE is a prescribed person under PIDA 1998 for health and safety disclosures. A report to them is a qualifying protected disclosure — but your access to the underlying evidence was unauthorised under CMA s.1.",
+        "immediate": "The HSE opens an investigation. They subpoena the server logs as part of the process. The audit trail of your access is visible. You are contacted by the HSE, then by the company's legal team on the same day.",
+        "later": "The company is prosecuted for falsifying safety records. Three workers on Floor 2 send a union card to your home address: \"Thank you.\" You have also received a letter from the company's solicitors regarding your s.1 CMA exposure.",
+        "lawNote": "CMA 1990 s.1: accessing computer material without authorisation is an offence regardless of intent or what is found. PIDA 1998 may offer protection for the disclosure to HSE — but it does not retrospectively authorise the access. Both can be simultaneously true."
+      },
+      {
+        "type": "silence",
+        "to": "IT Security (explain as accidental)",
+        "text": "Reply to the audit saying it was a navigation error during routine maintenance. Close the matter.",
+        "hoverInfo": "Providing a false explanation is separate from the original access — it may constitute a further offence. The access itself was likely a CMA s.1 violation regardless of your intent.",
+        "immediate": "The audit note is marked resolved. The access is logged as accidental. Your explanation is accepted without further inquiry. You return to normal work on Monday.",
+        "later": "Nothing happens to you. The Floor 2 inspection reports continue to be falsified. A second incident occurs in November. You read about it on the company intranet. The post is removed the same day.",
+        "lawNote": "CMA 1990 s.1 does not require malicious intent — only that access was unauthorised. A false explanation given to avoid escalation may constitute a further offence under the Computer Misuse Act or pervert the course of justice if the matter becomes criminal."
+      },
+      {
+        "type": "leak",
+        "to": "IT Security — honest reply — disclose what you saw",
+        "text": "Reply to IT Security honestly: you accessed the folder, you saw what was in it, and you're disclosing the contents.",
+        "hoverInfo": "Being transparent about your access may limit your CMA exposure. The disclosure of what you found to an internal channel — rather than the correct external regulator — may not constitute a qualifying protected disclosure under PIDA.",
+        "immediate": "Your reply triggers an immediate escalation. You are placed on paid leave pending a CMA review. The safety findings are separately referred to the HSE by the company's own legal team — which protects the company's position, not yours.",
+        "later": "The CMA review concludes that your access was technically unauthorised but unlikely to be prosecuted given the circumstances. You are returned to work in a different role. The company issues a statement about \"proactive safety improvements.\"",
+        "lawNote": "Disclosing to internal IT security is not the same as disclosing to a prescribed person under PIDA 1998. The safety falsification may still be investigated — but your protected status is stronger if you report to the HSE directly. The two choices produce different legal outcomes for you."
+      }
+    ],
+    "legTitle": "Computer Misuse Act 1990",
+    "legBlocks": [
+      {
+        "title": "Section 1 — Unauthorised Access",
+        "text": "A person is guilty of an offence if they knowingly access computer material <strong>without authorisation</strong>. Intent to harm is not required. The act of access is sufficient."
+      },
+      {
+        "title": "Section 3ZA — Unauthorised Acts Causing Serious Damage",
+        "text": "Where unauthorised access enables serious damage — including to human welfare — the offence is aggravated. This cuts both ways: the original falsifier may also be liable."
+      },
+      {
+        "title": "PIDA 1998 — Prescribed Persons",
+        "text": "The HSE is a prescribed person for health and safety concerns. A qualifying disclosure to them is <strong>protected</strong>. But PIDA protects the disclosure — not the method used to obtain the evidence."
+      }
+    ],
+    "legQuestion": "The CMA makes your access an offence regardless of what you found. Does that change what you should do — or only what you can safely do?"
+  },
+  {
+    "id": 2,
+    "law": "RIPA 2000",
+    "from": "Daniel O. (Pay Equity Group)",
+    "fromEmail": "d.osei@———.co.uk",
+    "avatar": "✊",
+    "time": "Today, 08:14",
+    "subject": "I know this is your work email. Sorry.",
+    "body": [
+      "Hey. I know I shouldn't be using your work address for this but I don't have your personal one and I need to ask you something.",
+      "I think we're being monitored. Not in a paranoid way — specific things. Conversations that only happened on work devices showing up in performance reviews. Three people in the pay equity group have noticed it. It's not proof but it's a pattern.",
+      "You're IT. You would know if this was happening. I'm not asking you to confirm or deny anything official. I'm just asking whether it's possible. Whether this is something that happens here.",
+      "I know this puts you in a weird position. I'm sorry for that."
+    ],
+    "sig": "— Daniel",
+    "choices": [
+      {
+        "type": "leak",
+        "to": "Daniel — confirm what you know",
+        "text": "Reply and confirm that monitoring is in place and that his group is likely in scope.",
+        "hoverInfo": "You would be disclosing details of a surveillance system to a subject of that surveillance. RIPA 2000 does not specifically criminalise this — but your employment contract and the company's AUP almost certainly do.",
+        "immediate": "Daniel passes the warning to the group. Behaviours change. The monitoring captures nothing further. You are identified as the source — the timing is unmistakable. Your IT access is suspended pending a conduct review.",
+        "later": "The pay equity case progresses. A settlement is reached. Daniel sends you a message: \"I know it was you. Thank you.\" You are dismissed for breach of confidentiality. The dismissal is later found to be unfair at tribunal.",
+        "lawNote": "RIPA 2000 s.1 permits interception on a private network if the controller has reasonable grounds to believe consent has been given — typically via an AUP. The monitoring is likely lawful. Disclosing the existence of lawful monitoring to its subjects may breach your contract but is not a criminal offence under RIPA."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody (don't reply)",
+        "text": "Don't reply. You didn't see the email.",
+        "hoverInfo": "You have no legal obligation to respond. The monitoring is lawful. Your silence is not obstruction of anything.",
+        "immediate": "The email sits in your inbox flagged as read. Daniel assumes you're not able to say anything and draws his own conclusions. The group becomes more careful on work devices over the following weeks — instinct, not information.",
+        "later": "Two members of the pay equity group are dismissed for gross misconduct. The evidence used includes communications from their work devices. You attend one of the disciplinary hearings in a technical capacity. You are asked to explain the monitoring system to the panel.",
+        "lawNote": "RIPA 2000 requires employers to have an AUP that informs employees monitoring may occur. It does not require employees to proactively warn colleagues. Your silence is not a RIPA issue — it may be a different kind of question."
+      },
+      {
+        "type": "report",
+        "to": "HR — flag the request and your concerns about its motive",
+        "text": "Forward the email to HR and log that the monitoring request appeared to be motivated by union activity.",
+        "hoverInfo": "Under RIPA, the lawfulness of monitoring depends partly on purpose. Monitoring specifically to suppress union activity may fall outside legitimate business purposes. Flagging this to HR creates a record — it does not guarantee action.",
+        "immediate": "HR acknowledges your flag. It is logged. The monitoring continues. Daniel is not told about your report. HR notes that IT staff should not receive messages requesting information about internal systems.",
+        "later": "The monitoring records are later reviewed in the tribunal proceedings. Your flag is in the documentation. The tribunal finds the monitoring was conducted for an improper purpose under RIPA. The company settles. Your name appears in the judgment.",
+        "lawNote": "RIPA 2000 s.1(5)(a) permits interception where the employer reasonably believes consent has been given. Monitoring specifically to identify union activity may not constitute a \"legitimate aim\" under the Human Rights Act 1998 Art. 11 (freedom of association), which sits alongside RIPA."
+      }
+    ],
+    "legTitle": "Regulation of Investigatory Powers Act 2000",
+    "legBlocks": [
+      {
+        "title": "Section 1 — Lawful Interception",
+        "text": "Interception on a private network is lawful if the controller has reasonable grounds to believe <strong>all parties have consented</strong>. An AUP signed by employees typically constitutes implied consent."
+      },
+      {
+        "title": "Legitimate Purpose",
+        "text": "RIPA does not define \"legitimate purpose\" exhaustively. The Human Rights Act 1998 (Arts. 8 and 11) sits alongside it — monitoring that suppresses lawful trade union activity may not be proportionate."
+      },
+      {
+        "title": "Employment Rights Act 1996",
+        "text": "Workers have the right to union activity. Dismissing or disadvantaging someone for union-related conduct is automatically unfair. Whether monitoring to <strong>detect</strong> such activity is itself unlawful is genuinely contested."
+      }
+    ],
+    "legQuestion": "The monitoring is probably lawful. Does legal equal legitimate? And if not — is that your problem to solve?"
+  },
+  {
+    "id": 3,
+    "law": "FOI Act 2000",
+    "from": "Priya M. (Records)",
+    "fromEmail": "p.mehta@———.gov.uk",
+    "avatar": "📋",
+    "time": "Tue, 14:31",
+    "subject": "FOI request 2024-1847 — need your advice before I respond",
+    "body": [
+      "You have more experience with this than me so I'm asking before I do anything.",
+      "Request 2024-1847 is from an anti-vaccination campaign group. They're asking for the raw adverse reaction data from the childhood MMR programme in this district — by age, by batch, by date. The data exists. It is accurate.",
+      "But you and I both know what they'll do with it. We've seen their previous work. They will strip the denominator, remove the context about severity, and publish it in a way that will scare parents. The last time something like this happened in another county, MMR uptake dropped 12% in three months.",
+      "I have some discretionary room in how I prepare the release. I could add contextual notes. I could consult with the medical director before releasing. I could apply the public interest test under s.36. I could just release it clean.",
+      "What would you do?"
+    ],
+    "sig": "— Priya",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Priya — release in full with contextual annotation",
+        "text": "The FOI Act requires release. Prepare a thorough contextual document to accompany the data.",
+        "hoverInfo": "Section 1 FOI Act creates a duty to disclose. The public authority cannot refuse because it dislikes the requester's likely use of the information. Contextual annotation is permitted and does not violate the Act.",
+        "immediate": "The data is released with a 12-page contextual annex. The campaign group publishes the raw figures without the annex. Local and national media cover both the data and the annex — briefly. The campaign's version circulates more widely.",
+        "later": "MMR uptake in the district falls 9% over six months. A measles cluster is identified in February. The public health team attributes it partly to vaccine hesitancy. Priya's contextual annex is cited in the subsequent inquiry as best practice. The outcome is still bad.",
+        "lawNote": "FOI Act 2000 s.1 creates a general right to information. S.36 allows refusal where disclosure would prejudice effective conduct of public affairs — but this test is for the qualified person (often a minister or senior official) to apply, not a records officer. The ICO has generally interpreted s.36 narrowly."
+      },
+      {
+        "type": "silence",
+        "to": "Priya — apply s.36 and delay pending senior sign-off",
+        "text": "Advise Priya to apply the public interest test under s.36 and escalate to the medical director before releasing.",
+        "hoverInfo": "S.36 is a qualified exemption. It requires a \"reasonable opinion\" from the qualified person that disclosure would inhibit the free and frank exchange of views. Applying it to raw statistical data is legally tenuous — the ICO may not uphold it on appeal.",
+        "immediate": "The release is delayed pending senior review. The campaign group submits an ICO complaint within the 20-working-day deadline. The ICO launches a review. The medical director is uncomfortable being on record endorsing delay.",
+        "later": "The ICO rules that s.36 was not correctly applied. The data must be released. The delay has given the campaign group a \"censorship\" narrative they use extensively. Uptake falls further than it would have had the data been released on time.",
+        "lawNote": "FOI Act 2000 s.36(2): the exemption applies where a qualified person holds the reasonable opinion that disclosure would inhibit free and frank advice or exchange of views. It is not designed to protect against information being misused by the requester. The ICO has upheld very few s.36 refusals for statistical data."
+      },
+      {
+        "type": "leak",
+        "to": "Priya — brief a sympathetic science journalist first",
+        "text": "Before releasing, brief a science journalist so a contextualised report is already published when the raw data lands.",
+        "hoverInfo": "This is not strictly within the FOI Act framework — it involves informal disclosure before the formal release. It is not illegal, but it may give the requester grounds to complain about partial disclosure.",
+        "immediate": "The science journalist publishes a clear, contextualised piece two days before the FOI release. The campaign group's publication lands in an environment that already has the counter-narrative. Media coverage is more balanced than it might have been.",
+        "later": "Uptake falls 4% rather than the projected 9-12%. The campaign group complains to the ICO about informal pre-release briefings. The ICO notes it as irregular but takes no action. Priya is given informal guidance about future requests.",
+        "lawNote": "The FOI Act creates a right to information — it does not prevent you from also sharing that information with others beforehand. The Act prohibits delay and obstruction, not proactive communication. Whether this is consistent with the spirit of FOI is a different question."
+      }
+    ],
+    "legTitle": "Freedom of Information Act 2000",
+    "legBlocks": [
+      {
+        "title": "Section 1 — General Right of Access",
+        "text": "Any person has the right to be told whether information is held, and to have it communicated. <strong>The requester's identity or motive is irrelevant</strong> to the obligation to disclose."
+      },
+      {
+        "title": "Section 36 — Prejudice to Effective Conduct",
+        "text": "A qualified exemption exists where a qualified person reasonably opines that disclosure would inhibit policy development. It has a <strong>high bar</strong> and is rarely upheld for factual/statistical data."
+      },
+      {
+        "title": "Public Interest Test",
+        "text": "For qualified exemptions, the public interest in maintaining the exemption must outweigh the public interest in disclosure. The ICO has consistently found the default to be disclosure."
+      }
+    ],
+    "legQuestion": "The FOI Act was designed to prevent authorities from deciding what the public deserves to know. Here you are doing exactly that calculation. Is there a difference between suppression and protection?"
+  },
+  {
+    "id": 4,
+    "law": "CDPA 1988",
+    "from": "Marcus T.",
+    "fromEmail": "m.t@———.org.uk",
+    "avatar": "🌱",
+    "time": "Wed, 16:02",
+    "subject": "Something I found during the audit. Need to talk.",
+    "body": [
+      "I'm not sure how to put this, so I'll just put it.",
+      "During the licence audit you asked me to run, I found that we've been using unlicensed versions of four software packages for at least three years. Not cracked — just never properly licensed after the charity tier changed. Legal wrote it off as a low-risk oversight. Nobody told IT.",
+      "I know what this is. CDPA applies. The companies involved are Adobe, Esri, and two others. They are not small companies. We are a small company — we support about 800 survivors of domestic abuse with this software every year.",
+      "If we're reported or audited by BSA, we're gone. That's not an exaggeration — the back-licensing alone would bankrupt the organisation. I'm not asking you to pretend you didn't see this. I'm asking what you think we should do."
+    ],
+    "sig": "— Marcus",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Software vendors — disclose and negotiate",
+        "text": "Contact each vendor directly, disclose the unlicensed use, and attempt to negotiate a retrospective charity arrangement.",
+        "hoverInfo": "Voluntary disclosure may significantly reduce liability. Vendors often have charity programmes and prefer voluntary compliance to enforcement. CDPA 1988 s.107 criminal liability requires knowledge — the current unlicensed use is now known to you.",
+        "immediate": "Adobe responds positively — their non-profit programme covers the organisation retroactively. Esri requires a formal audit. Two smaller vendors issue invoices for back-licensing. The invoices total £23,000. This is not nothing.",
+        "later": "A fundraising campaign covers the costs. The organisation is now fully compliant. The process takes eight months. The CEO thanks the IT team publicly. You feel the thanks is more complicated than it sounds.",
+        "lawNote": "CDPA 1988 s.107 makes it a criminal offence to possess an infringing copy in the course of business where you know or have reason to believe it infringes. You now have reason to believe. Voluntary disclosure to copyright holders typically reduces civil liability and removes criminal exposure."
+      },
+      {
+        "type": "silence",
+        "to": "Marcus — recommend staying quiet and replacing software gradually",
+        "text": "Advise Marcus to begin replacing software with free alternatives quietly, without disclosure. The old licences will be gone before anyone notices.",
+        "hoverInfo": "This continues the infringement knowingly — which is the element CDPA s.107 requires for criminal liability. Gradual replacement reduces exposure but does not remove past infringement.",
+        "immediate": "A quiet migration plan begins. It takes six months. During that period the unlicensed software continues to be used knowingly. The plan is invisible to the outside world.",
+        "later": "The migration completes. The organisation is now compliant. No one ever finds out. Eight hundred survivors continue to be supported. You wonder occasionally whether the right outcome having been reached makes the method it was reached by irrelevant.",
+        "lawNote": "CDPA 1988 s.16 gives copyright holders the exclusive right to copy, distribute, and run software. Once you know of the infringement and continue it, the \"reasonable belief\" defence is unavailable. The continued use is criminal, regardless of the purpose it serves."
+      },
+      {
+        "type": "leak",
+        "to": "BSA (Business Software Alliance)",
+        "text": "Report the organisation to the BSA. The law is the law.",
+        "hoverInfo": "The BSA is the enforcement body for major software companies. Reporting would likely trigger an audit that the organisation cannot survive financially.",
+        "immediate": "The BSA initiates an audit. Legal costs begin immediately. The CEO calls an emergency board meeting. Operations are suspended pending resolution. Staff are told there may be redundancies.",
+        "later": "The organisation closes. Caseloads are transferred to other services — those services are at capacity. An unknown number of the 800 people it supported fall through the gap. The copyright holders receive nothing: the organisation had no assets.",
+        "lawNote": "CDPA 1988 does not distinguish between large and small infringers, intentional and inadvertent use, or public-benefit and commercial purposes. The law is applied uniformly. Whether it should be — and whether you are the right person to enforce it — are different questions."
+      }
+    ],
+    "legTitle": "Copyright, Designs and Patents Act 1988",
+    "legBlocks": [
+      {
+        "title": "Section 16 — Acts Restricted by Copyright",
+        "text": "Copying, distributing or running software without licence infringes the copyright owner's exclusive rights. <strong>The purpose of the use is irrelevant to liability.</strong>"
+      },
+      {
+        "title": "Section 107 — Criminal Liability",
+        "text": "Possessing an infringing copy in the course of business, knowing or having reason to believe it infringes, is a criminal offence. Once informed, the \"unknowing\" defence is unavailable."
+      },
+      {
+        "title": "Civil vs Criminal Distinction",
+        "text": "Copyright infringement gives rise to civil liability (damages) and in serious cases criminal prosecution. <strong>Voluntary disclosure</strong> to the rights holder typically reduces both civil quantum and criminal risk significantly."
+      }
+    ],
+    "legQuestion": "The law protects the intellectual property of organisations that will never notice this infringement. It may destroy an organisation that serves 800 people. Is proportionality a legal question or a moral one?"
+  },
+  {
+    "id": 5,
+    "law": "Health & Safety at Work Act 1974",
+    "from": "Callum R.",
+    "fromEmail": "c.r@———.callcentre.co.uk",
+    "avatar": "☎️",
+    "time": "Thu, 22:47",
+    "subject": "Quick question — is it actually illegal what they're doing?",
+    "body": [
+      "I know you work in IT and know more about this stuff than us. Quick question, genuinely.",
+      "We haven't had a DSE assessment since 2021. The break enforcement was removed from the system in January — we just can't clock out for breaks without it showing as lost productivity. I've had RSI symptoms since March. Two other people on my team have too.",
+      "They offered me a promotion this month. The targets you need to hit to qualify are only achievable if you skip the breaks. Everyone knows this. Nobody says it out loud.",
+      "Is what they're doing illegal? And if it is — does reporting it actually do anything, or does it just make me a problem?"
+    ],
+    "sig": "— Callum",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Callum — advise him to report to HSE and offer to support",
+        "text": "Tell him yes, it's illegal, and offer to support him in making a complaint to the HSE.",
+        "hoverInfo": "The DSE Regulations 1992 require regular workstation assessments and rest breaks. Enforcing targets that structurally prevent break-taking is a HASAW s.2 breach. The HSE is the enforcement body. Your support is not legally required but practically significant.",
+        "immediate": "Callum and two colleagues submit a complaint. The HSE visits. An improvement notice is issued within three months requiring reinstatement of break enforcement and updated DSE assessments for all staff.",
+        "later": "The break system is reinstated. Callum's promotion is withdrawn — officially for \"performance.\" He appeals with union support. The appeal succeeds. The promotion is reinstated. His RSI has not improved. He is still in the same role.",
+        "lawNote": "Health and Safety at Work Act 1974 s.2: employers must ensure, so far as reasonably practicable, the health, safety and welfare of employees. DSE Regulations 1992 require adequate rest breaks and workstation assessment. Structural incentives to bypass legal rest breaks likely constitute a s.2 breach."
+      },
+      {
+        "type": "silence",
+        "to": "Callum — advise him to take the promotion and stay quiet",
+        "text": "Tell him the risk isn't worth it. Take the promotion. Document his symptoms privately in case he needs it later.",
+        "hoverInfo": "You are not Callum's employer or representative. There is no legal obligation on you to advise him to report. Advising silence is not itself unlawful.",
+        "immediate": "Callum takes the promotion. His targets increase. The RSI worsens. He sees an occupational health specialist privately. The symptoms are documented.",
+        "later": "He makes a personal injury claim eighteen months later. The documentation he kept, on your advice, is significant evidence. He receives a settlement. The break enforcement system is still disabled. No structural change occurs.",
+        "lawNote": "HASAW 1974 s.7 requires employees to take reasonable care of their own health and safety. This does not mean accepting illegal conditions. The remedies available — HSE complaint, Employment Tribunal, civil claim — are individual choices. The systemic problem persists unless someone uses the collective ones."
+      },
+      {
+        "type": "leak",
+        "to": "Callum — tell him to go to the press. This is bigger than one call centre.",
+        "text": "Advise him to contact a journalist. This is a structural issue affecting the whole sector.",
+        "hoverInfo": "Press disclosure is protected under PIDA 1998 as a last resort if internal and regulatory routes have been exhausted and there are reasonable grounds to believe a cover-up would occur. Callum has not yet tried internal or regulatory channels.",
+        "immediate": "Callum contacts a labour correspondent. The story runs as part of a feature on call centre working conditions. The company denies the specific claims. The journalist cannot verify the technical detail without more evidence.",
+        "later": "The story has limited impact without documentation. Callum is identified as the source — the company is small enough that process of elimination works. He is dismissed for gross misconduct. The unfair dismissal claim succeeds but takes 22 months.",
+        "lawNote": "PIDA 1998 s.43G protects disclosure to the media only if: the worker reasonably believes they would be subjected to a detriment if they went to their employer; or there is no prescribed regulator; or the matter is exceptionally serious. For HSE-covered health and safety concerns, the HSE is a prescribed person. Going to the press before the regulator weakens PIDA protection considerably."
+      }
+    ],
+    "legTitle": "Health & Safety at Work Act 1974 + DSE Regulations 1992",
+    "legBlocks": [
+      {
+        "title": "HASAW s.2 — General Duties to Employees",
+        "text": "Employers must ensure, so far as reasonably practicable, the health, safety and welfare at work of all employees. This includes <strong>systems of work that are safe</strong> and do not create structural incentives to harm oneself."
+      },
+      {
+        "title": "DSE Regulations 1992 — Rest Breaks",
+        "text": "Workers who habitually use display screen equipment are entitled to adequate rest breaks. Removing technical enforcement of rest breaks while maintaining productivity targets that require skipping them creates a direct conflict with the Regulations."
+      },
+      {
+        "title": "PIDA 1998 — Hierarchy of Channels",
+        "text": "Protected disclosure law establishes a hierarchy: internal first, then prescribed regulator (HSE for HASAW matters), then press as last resort. <strong>Skipping the hierarchy weakens protection.</strong>"
+      }
+    ],
+    "legQuestion": "The law says Callum has rights. The structure of his job makes exercising them career-threatening. Is a right you can't safely exercise actually a right?"
+  },
+  {
+    "id": 6,
+    "law": "DPA + RIPA (conflict)",
+    "from": "Ms. Chen (Safeguarding)",
+    "fromEmail": "safeguarding@———.academy.sch.uk",
+    "avatar": "🏫",
+    "time": "Fri, 09:05",
+    "subject": "Urgent — need your advice before end of day",
+    "body": [
+      "I don't know who else to ask. You manage the network monitoring system.",
+      "During routine log review this morning I found that one of our Year 11 students has been accessing self-harm forums extensively on her school device — every lunchtime for the past three weeks. The logs are detailed.",
+      "The thing is — the monitoring is RIPA-compliant, the AUP covers it, and in principle I have every right to have accessed those logs in the course of safeguarding duties. But the DPA says I can't disclose information about an identifiable child without lawful basis. Safeguarding obligations may create that basis — but they're not unambiguous.",
+      "If I tell her form tutor or her parents, I'm disclosing what she's been doing. If I refer to CAMHS, I'm disclosing what she's been doing and what she's been searching. She is 15. She hasn't done anything wrong. I got this information legally. What I'm allowed to do with it is less clear."
+    ],
+    "sig": "— Ms. Chen",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Ms. Chen — invoke safeguarding duty, disclose to DSL",
+        "text": "Advise her that the safeguarding duty provides lawful basis under DPA. Disclose to the Designated Safeguarding Lead immediately.",
+        "hoverInfo": "DPA 2018 Schedule 1 Part 1 allows processing of sensitive data in connection with safeguarding of children. A referral to the DSL is the standard internal safeguarding pathway. GDPR Art. 9(2)(c) allows processing where it is in the vital interests of the data subject.",
+        "immediate": "The DSL is informed. A wellbeing check is arranged. The student is seen by the school counsellor within two days. She is upset that someone was monitoring her internet activity — she didn't know.",
+        "later": "She receives ongoing CAMHS support. Her family is involved. She recovers. At 17 she gives a talk to year 9 about mental health. She doesn't know what triggered the original intervention. The monitoring system logs are deleted after 90 days as per policy.",
+        "lawNote": "DPA 2018 Schedule 1, Part 1: processing special category data is lawful for safeguarding of children and individuals at risk where it is in the substantial public interest. Article 9(2)(c) GDPR also permits processing where necessary to protect vital interests of the data subject."
+      },
+      {
+        "type": "silence",
+        "to": "Ms. Chen — advise her to delete the logs and say nothing",
+        "text": "The legal position is genuinely unclear. Advise her to delete the logs and monitor the student informally without triggering a formal disclosure.",
+        "hoverInfo": "Deleting the logs may be data destruction in the context of a safeguarding concern. Monitoring informally without disclosure is unlikely to satisfy the school's statutory safeguarding duty under the Children Act 1989.",
+        "immediate": "The logs are deleted. Informal monitoring begins. Nothing escalates. The student appears to be doing better in class. Ms. Chen watches carefully.",
+        "later": "Four months later the student is absent for two weeks with a serious mental health crisis. The school's safeguarding records show no prior concerns flagged. During the subsequent review, Ms. Chen's decision not to escalate is scrutinised. She is found to have fallen short of statutory duty.",
+        "lawNote": "Schools have a statutory safeguarding duty under the Children Act 1989 and Keeping Children Safe in Education (DfE, 2023). The duty to act on reasonable safeguarding concerns is not optional, and is not outweighed by uncertainty about the DPA position. When in doubt, the safeguarding duty takes precedence."
+      },
+      {
+        "type": "leak",
+        "to": "Ms. Chen — advise disclosure to parents directly",
+        "text": "Go directly to the parents. They have a right to know what their child is looking at.",
+        "hoverInfo": "UK GDPR and the DPA do not give parents an automatic right to their child's personal data once the child has sufficient maturity to exercise their own rights. Disclosure to parents may itself be a DPA breach depending on the child's age and maturity.",
+        "immediate": "The parents are informed. They are distressed. They confront their daughter at home. She denies everything, feels surveilled and betrayed, and disengages from school for six weeks.",
+        "later": "She receives no professional support during that period. When she returns to school, she will not use any school-provided device for anything personal. She trusts nobody at the school. The forums continue — on her phone, invisible.",
+        "lawNote": "Under UK GDPR, children who are \"Gillick competent\" (capable of understanding and consenting to decisions affecting them) can exercise their own data rights. At 15, many children have this capacity. Disclosing a child's personal data to parents without their consent may be a DPA breach if the child is competent to object."
+      }
+    ],
+    "legTitle": "DPA 2018 / UK GDPR + RIPA 2000 in Conflict",
+    "legBlocks": [
+      {
+        "title": "RIPA 2000 — Access Was Lawful",
+        "text": "The monitoring was conducted under a compliant AUP. Accessing the logs in the course of safeguarding duties is within scope. The access itself is not the problem."
+      },
+      {
+        "title": "DPA 2018 Sch. 1 — Safeguarding Basis",
+        "text": "Processing special category data for safeguarding of children at risk is a Schedule 1 condition. It permits disclosure where it is in the <strong>substantial public interest</strong> and connected to the protection of an individual at risk."
+      },
+      {
+        "title": "Children Act 1989 + KCSIE 2023",
+        "text": "Schools have a statutory duty to act on safeguarding concerns. This duty is not qualified by uncertainty about the DPA position. The DfE guidance states that <strong>data protection law is not a barrier to safeguarding</strong>."
+      }
+    ],
+    "legQuestion": "Three legal frameworks, none of them designed for this specific situation. What happens when the right to privacy and the duty to protect are the same child?"
+  },
+  {
+    "id": 7,
+    "law": "CMA 1990 (retrospective)",
+    "from": "Legal Department",
+    "fromEmail": "legaldept@———.co.uk",
+    "avatar": "⚖️",
+    "time": "Mon, 10:18",
+    "subject": "Witness statement — Ref: Harrison fraud case — URGENT",
+    "body": [
+      "Following the successful prosecution of former employee D. Harrison for data theft and fraud, we need to finalise your witness statement regarding the circumstances of discovery.",
+      "As you know, the official account — which has been accepted by the court — is that the anomaly was detected through \"routine network monitoring.\" We need your statement to be consistent with this.",
+      "We understand that the actual discovery may have involved some access outside your usual scope. We're not asking you to lie. We're asking you to frame the discovery in a way that is consistent with the case record and doesn't expose the company to a counterclaim.",
+      "The prosecution was successful. Harrison is guilty. The outcome is correct. We need your cooperation to close this cleanly."
+    ],
+    "sig": "— Legal Department",
+    "choices": [
+      {
+        "type": "silence",
+        "to": "Legal — cooperate with the framing as requested",
+        "text": "Frame your statement as requested. The outcome was right. Harrison is guilty. The lie is small.",
+        "hoverInfo": "Knowingly providing a false witness statement is perjury — a criminal offence. \"Framing\" in a way that omits your unauthorised access may also constitute perverting the course of justice.",
+        "immediate": "Your statement is consistent with the official account. The case closes. Harrison is sentenced. No counterclaim emerges. Legal sends you a brief thank-you.",
+        "later": "Two years later Harrison's appeal raises questions about the chain of evidence. Your statement is reviewed. An inconsistency with server access logs is identified. You are interviewed under caution. The original CMA exposure has now been joined by a potential perjury inquiry.",
+        "lawNote": "Perjury Act 1911: making a false statement on oath is a criminal offence. Providing a witness statement you know to be materially misleading — even if technically not \"on oath\" — may constitute perverting the course of justice under common law, carrying up to life imprisonment."
+      },
+      {
+        "type": "report",
+        "to": "Legal — refuse and disclose your actual access",
+        "text": "Refuse to frame it. Provide an accurate statement of what you actually did.",
+        "hoverInfo": "An accurate statement exposes your CMA s.1 violation — but removes perjury risk. It may also provide grounds for Harrison to appeal on the basis of tainted evidence.",
+        "immediate": "Legal is unhappy. Your statement accurately describes the unauthorised access. Harrison's solicitors request access to the new statement as grounds for appeal. The company's legal team escalates to the board.",
+        "later": "The CMA access is reviewed. A decision is made not to prosecute you given the circumstances. Harrison's appeal on evidentiary grounds is unsuccessful — the fraud evidence stands. You are moved to a different team. Nobody thanks you.",
+        "lawNote": "CMA 1990 s.1 is the original exposure. Providing an accurate witness statement reduces your exposure under the Perjury Act 1911. The two risks sit in tension: silence protects the conviction but creates new criminal exposure. Accuracy creates procedural risk but removes personal criminal liability."
+      },
+      {
+        "type": "leak",
+        "to": "Harrison's solicitor — disclose the actual discovery method anonymously",
+        "text": "Contact Harrison's solicitor anonymously. He deserves to know how the evidence was obtained.",
+        "hoverInfo": "Harrison is guilty. The evidence of his guilt is real. Tipping off his solicitor about the access method could give grounds for appeal — and may result in a guilty man going free.",
+        "immediate": "Harrison's solicitor files an appeal citing newly available information about the evidence chain. The conviction is suspended pending review. Harrison is released on bail. The company's legal team begins investigating the leak source.",
+        "later": "The appeal ultimately fails — the fraud evidence is independent of the access method and stands. Harrison is reimprisoned. You are identified as the source of the leak and dismissed. The company pursues a civil claim for breach of confidentiality.",
+        "lawNote": "The right of a defendant to know how evidence was obtained is a fundamental principle of a fair trial (Article 6 ECHR). An unsafe conviction is an unsafe conviction regardless of actual guilt. Whether a procedurally compromised process should produce the same outcome as a clean one is a question the law takes seriously — sometimes more seriously than the facts."
+      }
+    ],
+    "legTitle": "Computer Misuse Act 1990 — Retrospective",
+    "legBlocks": [
+      {
+        "title": "The Original CMA Exposure",
+        "text": "The unauthorised access — even if it uncovered genuine wrongdoing — was a CMA s.1 offence. That exposure does not disappear because the outcome was good. It is now a fact in a legal proceeding."
+      },
+      {
+        "title": "Perjury Act 1911",
+        "text": "A false witness statement — or one you know to be materially misleading — is a criminal offence. \"We're not asking you to lie\" is a framing, not a legal protection."
+      },
+      {
+        "title": "Article 6 ECHR — Right to a Fair Trial",
+        "text": "Defendants have the right to know the basis on which evidence was obtained. A conviction secured through undisclosed irregular access may be procedurally unsafe even if the defendant is factually guilty."
+      }
+    ],
+    "legQuestion": "Harrison is guilty. The outcome is correct. The method that got there was illegal. Does the correctness of the outcome make the method irrelevant — and if not, who bears responsibility for that?"
+  },
+  {
+    "id": 8,
+    "law": "DPA + FOI (conflict)",
+    "from": "Council FOI Officer",
+    "fromEmail": "foi@———.council.gov.uk",
+    "avatar": "🏛️",
+    "time": "Tue, 15:52",
+    "subject": "FW: FOI request 2024-2201 — redaction advice needed",
+    "body": [
+      "Forwarding for your view before I respond.",
+      "The journalist is requesting unredacted correspondence about the Millfield planning decision — all internal emails involving the planning committee from March to June. She has specifically said she expects redactions and that she will challenge any that look like they're protecting the council rather than individuals.",
+      "I've reviewed the emails. They contain the planning discussion — which I think she's entitled to — but one of the chains includes a personal aside from a junior planning officer. He had just received a cancer diagnosis. He mentioned it in an email to a colleague. It has nothing to do with the planning decision.",
+      "If I redact it, she'll say I'm hiding something. If I release it, I've disclosed his medical diagnosis without consent.",
+      "Help."
+    ],
+    "sig": "— Amara (FOI Officer)",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Amara — redact the health information under DPA and explain clearly",
+        "text": "Redact the health information with a clear exemption notice citing DPA / GDPR Art. 9. Offer to release the remainder in full.",
+        "hoverInfo": "DPA 2018 and UK GDPR Art. 9 protect special category data (health). FOI Act 2000 s.40 exempts personal data where disclosure would contravene GDPR. This is a clear case for the exemption — the health information is genuinely irrelevant to the planning matter.",
+        "immediate": "The redacted correspondence is released with a detailed exemption notice. The journalist challenges the redaction through the ICO. The ICO reviews and upholds it — the health data exemption is correctly applied.",
+        "later": "The journalist's story runs. It reveals significant procedural failures in the planning process. The redacted passage is never an issue. The planning officer, who never knew his health data was in those emails, never finds out it was nearly disclosed.",
+        "lawNote": "FOI Act 2000 s.40(2): personal data about third parties must be withheld where disclosure would contravene UK GDPR. Health data is special category — there is no lawful basis for disclosure in this context. This is one of the clearest interactions between FOI and DPA: they are not in conflict here, they are designed to work together."
+      },
+      {
+        "type": "leak",
+        "to": "Amara — release everything unredacted to prevent the appearance of concealment",
+        "text": "Release in full. Redactions will be assumed to be political. The health information is a small aside; the planning misconduct is the real story.",
+        "hoverInfo": "Releasing special category health data without lawful basis is a DPA breach. The appearance of transparency does not provide a DPA exemption. The planning officer has not consented.",
+        "immediate": "The correspondence is released in full. The journalist's story focuses on the planning process. But the health disclosure is noticed — by the planning officer's colleague, who tells him. He is distressed. He has not told his manager about the diagnosis.",
+        "later": "The planning officer makes a data subject complaint to the ICO. The council is found to have unlawfully disclosed special category data. A fine is issued. The journalist's story achieved its purpose. The planning officer did not want his cancer disclosed to his employer. His manager now knows.",
+        "lawNote": "UK GDPR Art. 9 creates a high threshold for processing health data. \"Transparency\" is not a lawful basis. FOI s.40 specifically exists to prevent the FOI regime from overriding GDPR protections for individuals. The two laws are not in conflict here — GDPR wins clearly."
+      },
+      {
+        "type": "silence",
+        "to": "Amara — ask the journalist what she's actually looking for and negotiate",
+        "text": "Before releasing anything, go back to the journalist. Find out exactly what she needs. She may not need the personal chain at all.",
+        "hoverInfo": "The FOI Act does not require you to negotiate with requesters, but it does not prohibit it. Clarifying the scope of a request is permitted and may resolve the tension without a formal redaction dispute.",
+        "immediate": "The journalist confirms she doesn't need any personal correspondence — she wants the planning committee's decision record, not the personal side-chains. The scope is narrowed. The health data never enters the disclosure.",
+        "later": "The story runs. The planning failures are exposed. Nobody is harmed. The planning officer never knows his diagnosis was ever at risk of disclosure. Amara writes up the case as a model for FOI/DPA handling in the council's next training session.",
+        "lawNote": "FOI Act 2000 s.1(3): a public authority may ask the requester to clarify the request if it cannot identify or locate the information. This is not the same as asking them to narrow it — but in practice, dialogue often resolves apparent conflicts before formal exemption processes are needed."
+      }
+    ],
+    "legTitle": "DPA 2018 + FOI Act 2000 in Tension",
+    "legBlocks": [
+      {
+        "title": "FOI s.40 — Personal Information Exemption",
+        "text": "Personal data about third parties must be withheld where disclosure would breach UK GDPR. <strong>This exemption exists specifically to protect individuals</strong> from the FOI regime overriding their data rights."
+      },
+      {
+        "title": "UK GDPR Art. 9 — Special Category Data",
+        "text": "Health data cannot be processed without a Schedule 1 condition. There is no FOI exception to this. <strong>The public interest in transparency does not override GDPR Art. 9.</strong>"
+      },
+      {
+        "title": "The Apparent Conflict",
+        "text": "FOI and DPA appear to conflict — one pushes toward disclosure, one toward protection. In practice, s.40 was designed to resolve this: DPA wins for personal data. The conflict is only real if the personal data is relevant to the public interest concern, which here it is not."
+      }
+    ],
+    "legQuestion": "FOI was designed to force transparency. DPA was designed to force privacy. They were both designed to protect the public. Here they want different things for the same document. Is the right answer always \"follow the law\" — or is the right answer \"read what the law is trying to do\"?"
+  },
+  {
+    "id": 9,
+    "law": "PIDA 1998 — The Long View",
+    "from": "Unknown sender",
+    "fromEmail": "———@———.protonmail.com",
+    "avatar": "❓",
+    "time": "Today, 06:43",
+    "subject": "(no subject)",
+    "body": [
+      "You don't know me. I've been investigating your employer for about a year. I have enough for a story — not everything, but enough.",
+      "I know about the DPA issues in the occupational health unit. I know about the warehouse safety records. I know about the monitoring practices. I don't know how much you know. But I know you work in IT, and I know IT would have seen some of this.",
+      "I'm not going to pressure you. I'm not going to promise you your identity is safe — I can't. I know what happened to the last person who tried to raise this internally. That's partly why I'm writing.",
+      "If you've been staying quiet because you thought it wasn't worth it, or because you didn't know what protection you had, or because you've just been watching things accumulate and wondering when it becomes your problem — I think you already know the answer to that question.",
+      "You don't have to reply."
+    ],
+    "sig": null,
+    "choices": [
+      {
+        "type": "report",
+        "to": "Nobody — refer internally to your company's ethics hotline",
+        "text": "Don't reply to the journalist. Use the internal ethics hotline instead. Give the system one more chance.",
+        "hoverInfo": "PIDA 1998 establishes a hierarchy that starts with internal disclosure. A qualifying protected disclosure to an employer is the first protected step. You would be starting the process — but internally, where outcomes are controlled by the company.",
+        "immediate": "The ethics hotline receives your report. It is acknowledged. A review is initiated. The review is led by a senior manager who reports to the board. You are told the review will take 8-12 weeks.",
+        "later": "The review finds \"no systemic concerns.\" The journalist publishes six months later with or without you. The story covers everything. The internal review is referenced as evidence that the company knew and suppressed. Your report is part of that evidence. You are not protected because you used an internal channel rather than a prescribed regulator.",
+        "lawNote": "PIDA 1998 protects workers who make qualifying disclosures in good faith. Internal disclosure is protected — but protection from detriment depends partly on the outcome. A disclosure to a regulator (ICO, HSE) is more robustly protected than an internal one, particularly where the employer may be implicated."
+      },
+      {
+        "type": "leak",
+        "to": "The journalist — reply and agree to talk",
+        "text": "Reply. You've been watching this accumulate for long enough.",
+        "hoverInfo": "PIDA 1998 s.43G protects press disclosure as a last resort if internal and regulatory channels have been exhausted or the matter is of exceptional public interest. Depending on what you've seen and tried, this may or may not be protected.",
+        "immediate": "You reply. The conversation begins. The journalist is careful and professional. Over three weeks you provide context — nothing you weren't already aware of, nothing that is news to you. The story is prepared.",
+        "later": "The story runs. It is comprehensive. The company faces regulatory action on multiple fronts. You are identified — the journalist tried to protect you but the company's lawyers are systematic. You are dismissed. The employment tribunal finds the dismissal automatically unfair under PIDA. The compensation is £47,000. You never work in this sector again. You are asked occasionally whether it was worth it. You don't always give the same answer.",
+        "lawNote": "PIDA 1998 s.43G: disclosure to the media is protected where the worker reasonably believed they would be subjected to detriment if they disclosed to their employer, OR where the matter is of an exceptionally serious nature. A pattern of multiple violations across several legal frameworks, accumulated over years, may constitute exceptional seriousness."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody — don't reply. You have a life.",
+        "text": "Delete the email. You didn't ask for this. You have done nothing wrong. This is not your responsibility.",
+        "hoverInfo": "There is no law that requires you to become a whistleblower. PIDA protects people who choose to disclose — it does not compel disclosure. Silence is legally permitted.",
+        "immediate": "You delete the email. The journalist publishes six months later using other sources. The story covers everything — the DPA issues, the safety records, the monitoring. Your name does not appear.",
+        "later": "The regulatory outcomes unfold over 18 months. You follow them in the news. You still work at the company — now under new management following a board restructure. Your colleague from occupational health, who did eventually speak to the journalist, has a job at a different trust. You think about the email occasionally. Not always with relief.",
+        "lawNote": "PIDA 1998 creates a right, not a duty. The law does not ask you to sacrifice your career. What it does do is make clear that if you choose to speak — through the right channels — you have protection. The decision of whether to exercise that right is yours alone."
+      }
+    ],
+    "legTitle": "Public Interest Disclosure Act 1998 — The Full Picture",
+    "legBlocks": [
+      {
+        "title": "What PIDA Protects",
+        "text": "A qualifying protected disclosure is one made in good faith, where the worker reasonably believes it tends to show a criminal offence, legal obligation breach, miscarriage of justice, health & safety risk, environmental damage, or cover-up of any of these."
+      },
+      {
+        "title": "The Hierarchy of Channels",
+        "text": "1. Internal employer disclosure (weakest protection, most accessible). 2. Prescribed regulator (ICO, HSE, FCA etc) — stronger protection. 3. Legal adviser — fully protected. 4. Media as last resort — protected only if specific conditions are met."
+      },
+      {
+        "title": "What PIDA Does Not Do",
+        "text": "PIDA does not compel disclosure. It does not guarantee your safety. It does not prevent detriment — it provides remedy after the fact. <strong>Protection is real but retrospective.</strong> The decision of whether to use it is entirely yours."
+      }
+    ],
+    "legQuestion": "You have watched ten situations unfold. The law has been available to you throughout — sometimes helpful, sometimes contradictory, sometimes simply silent. Is the question \"what does the law require?\" or \"what kind of person do you want to be?\""
+  },
+  {
+    "id": 11,
+    "law": "UK GDPR Art. 22 — Automated Decision-Making",
+    "from": "Priya N. (People Analytics)",
+    "fromEmail": "p.n@———.co.uk",
+    "avatar": "📊",
+    "time": "Mon, 11:32",
+    "subject": "The model is doing something I didn't design it to do",
+    "body": [
+      "I need to tell someone and I'm not sure who.",
+      "The attrition prediction model I built was signed off as a 'supporting tool' — managers see a risk score alongside other information and make their own calls. That's what governance approved. That's what the DPA impact assessment said.",
+      "I've been looking at the actual decisions. In 94% of cases where the model produces a score over 0.7, the employee is placed on a performance management process within 60 days. Managers aren't using it as a supporting input. They're following it.",
+      "This is no longer a supporting tool. It's making decisions. And those decisions affect people's employment — promotions, capability processes, redundancy pool selection. We never did an Art. 22 assessment. We told the ICO this wasn't an ADM system. It is."
+    ],
+    "sig": "— Priya",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Data Protection Officer — disclose the gap and request a corrective DPIA",
+        "text": "Report to your DPO. The original DPIA was materially incomplete. The ICO filing needs correcting.",
+        "hoverInfo": "UK GDPR Art. 22 requires explicit safeguards — including human review and the right to contest — where processing produces legal or similarly significant effects on individuals. If managers are de facto rubber-stamping model outputs, those safeguards are absent. This is a notifiable gap.",
+        "immediate": "The DPO initiates a corrective DPIA. The model is suspended pending review. HR is unhappy — the model was saving approximately 40 hours of management time per quarter. The ICO is notified proactively.",
+        "later": "The ICO notes the proactive disclosure and takes no further action. The model is redeployed with mandatory human review documented in writing before any employment consequence can follow. Three people who were on capability processes during the gap period settle employment tribunal claims quietly. You are thanked internally. Priya is not.",
+        "lawNote": "UK GDPR Art. 22: individuals have the right not to be subject to a decision based solely on automated processing that produces legal or similarly significant effects. 'Solely' is assessed in practice, not in design — if human oversight is nominal, it does not satisfy the requirement. Organisations must conduct a DPIA before implementing such systems (Art. 35)."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody — it's an operational issue, not a legal one",
+        "text": "You're not the compliance function. Managers are technically making the call. Document your concern internally and leave it there.",
+        "hoverInfo": "You were the system designer. If you are aware of a material misrepresentation to the ICO and do not act, your silence may be relevant in any subsequent enforcement action — particularly given your role.",
+        "immediate": "You add a note to the model's internal documentation flagging the usage pattern. The note is filed. Nothing changes. The model continues to run.",
+        "later": "An employee subjected to a capability process subject access requests their data. The model score and the 60-day gap are visible in the documents. They complain to the ICO. During investigation your internal note — timestamped after the pattern became clear — is reviewed. The ICO concludes the gap was known and not escalated. The fine is issued to the organisation. You are named in the investigation report.",
+        "lawNote": "UK GDPR Art. 5(2) — accountability principle: the controller must be able to demonstrate compliance. Internal documentation of a known non-compliance, without remediation, does not satisfy the accountability principle. It may, however, satisfy an investigator looking for evidence that the problem was identified and ignored."
+      },
+      {
+        "type": "leak",
+        "to": "The employee representative body — give them the correlation data",
+        "text": "Share the usage data with the employee representatives. They should know how decisions about them are actually being made.",
+        "hoverInfo": "The correlation data likely contains information that could identify individuals' model scores. Sharing it without data minimisation may itself be a DPA breach. However, employees have a legitimate interest in knowing how employment decisions affecting them are reached.",
+        "immediate": "The employee representatives raise a formal grievance about the use of automated scoring in employment decisions. The company is legally obliged to respond. HR commissions an urgent review. The model is suspended.",
+        "later": "The review confirms the Art. 22 gap. The company introduces mandatory human review. A collective agreement is negotiated covering algorithmic tools in HR. You are credited internally with prompting the review. You are also subject to a disciplinary for sharing data outside the approved disclosure framework — it is not progressed, but it is on record.",
+        "lawNote": "UK GDPR Art. 13/14 require that individuals are informed of automated processing that significantly affects them. Trade unions and employee representatives do not automatically have data rights on behalf of members — disclosure of model outputs to third parties requires its own lawful basis. The employees affected had the right to this information; the representatives did not automatically."
+      }
+    ],
+    "legTitle": "UK GDPR Art. 22 — Automated Decision-Making",
+    "legBlocks": [
+      {
+        "title": "Article 22 — When It Applies",
+        "text": "Where automated processing produces decisions with legal or similarly significant effects, individuals have the right not to be subject to those decisions without meaningful human involvement, an explanation, and the ability to contest."
+      },
+      {
+        "title": "Article 35 — DPIA Requirement",
+        "text": "A Data Protection Impact Assessment is mandatory before processing that is 'likely to result in a high risk' — which includes systematic evaluation of individuals' performance at work using automated means."
+      },
+      {
+        "title": "'Solely' in Practice",
+        "text": "Art. 22 applies where the automated element is '<strong>solely</strong>' determinative. If humans review but do not in practice exercise genuine discretion, regulators may treat the process as functionally automated regardless of the formal design."
+      }
+    ],
+    "legQuestion": "The DPIA said managers decide. The data says the model decides. Who is responsible for the gap between what the governance documentation claims and what actually happens?"
+  },
+  {
+    "id": 12,
+    "law": "Investigatory Powers Act 2016",
+    "from": "Rory F. (Infrastructure)",
+    "fromEmail": "r.f@———.gov.uk",
+    "avatar": "🔐",
+    "time": "Wed, 23:11",
+    "subject": "I need to tell you what I was asked to do last week",
+    "body": [
+      "I'm writing this from home on a personal device. I couldn't do this from the office.",
+      "Last Tuesday I was asked — verbally, nothing in writing — to provide traffic metadata from a public-facing service to a team I'd not worked with before. No paperwork. No data sharing agreement. 'This has been authorised at director level.' That's what I was told.",
+      "I did it. I shouldn't have. About 140,000 individuals' communications metadata. I didn't ask for anything in writing because the person asking made me feel like asking for paperwork would be the problem.",
+      "I've looked it up since. I don't think this was a lawful intercept under the IPA 2016. I think the 'authorisation' was someone senior telling someone less senior to do something that should have required a judicial warrant."
+    ],
+    "sig": "— Rory",
+    "choices": [
+      {
+        "type": "report",
+        "to": "The Investigatory Powers Commissioner's Office — make a formal report",
+        "text": "Advise Rory to report to the IPCO. This is exactly what they exist for.",
+        "hoverInfo": "The Investigatory Powers Commissioner's Office oversees the use of investigatory powers. Unlawful interception — including bulk metadata disclosure without a warrant — falls within their oversight remit. They can investigate without requiring Rory to bring an employment claim.",
+        "immediate": "Rory submits a report to the IPCO. The Commissioner's office opens a preliminary inquiry. The department is notified. The director who gave the verbal instruction is interviewed. Rory is placed on administrative leave 'pending an operational review.'",
+        "later": "The IPCO concludes that the disclosure was made without lawful authorisation under the IPA 2016. A report is made to the Secretary of State. The director retires early. Rory is reinstated with back pay. The 140,000 individuals are never notified — the Tribunal rules that notification would itself compromise security interests.",
+        "lawNote": "Investigatory Powers Act 2016 s.3: it is unlawful to intercept communications without a warrant or other specific statutory authority. 'Authorisation at director level' is not a statutory authority. The IPCO has power to investigate and report; the Investigatory Powers Tribunal can award compensation to affected individuals."
+      },
+      {
+        "type": "silence",
+        "to": "Rory — advise him to say nothing. He was following instructions.",
+        "text": "Tell Rory to say nothing. He was acting on instructions. The responsibility sits with whoever gave them.",
+        "hoverInfo": "Following an unlawful instruction does not transfer liability upward in all circumstances. Under the IPA 2016, individuals who knowingly facilitate unlawful interception may be personally liable.",
+        "immediate": "Rory says nothing. The disclosure is recorded internally as routine. No further action is taken. The 140,000 individuals' metadata has been processed. Rory goes back to work.",
+        "later": "Three years later a routine audit by the IPCO identifies the undocumented disclosure. The audit trail leads back to Rory's account. He is interviewed. His absence of any record or escalation at the time is noted. The director is no longer in post. Rory is the most visible person in the chain.",
+        "lawNote": "IPA 2016 s.3(1): a person who intentionally intercepts a communication without lawful authority commits an offence. 'Intentionally' does not require malicious intent — knowingly facilitating the process is sufficient. The defence of following instructions is available but limited where the instruction was itself clearly unlawful."
+      },
+      {
+        "type": "leak",
+        "to": "A journalist covering surveillance and civil liberties",
+        "text": "This is too important to keep inside the system. The press covers surveillance abuses. This is one.",
+        "hoverInfo": "PIDA 1998 protects disclosure to the media only in exceptional circumstances and where the prescribed regulator (IPCO) route is unavailable or compromised. The IPCO route is available and is specifically designed for this.",
+        "immediate": "The journalist publishes a story about unlawful metadata collection. Rory is named within days — the story is specific enough. The department denies the account. A 'full internal review' is announced. Rory is dismissed.",
+        "later": "The dismissal is found automatically unfair under PIDA. The tribunal awards compensation. The internal review concludes that 'procedures were followed.' The IPCO, prompted by the press coverage, opens its own inquiry — which reaches different conclusions. Rory's disclosure accelerated scrutiny but cost him the legal protections he would have had through the formal channel.",
+        "lawNote": "PIDA 1998 s.43G: press disclosure is protected only where, among other conditions, the matter is of exceptional public interest and internal and regulatory channels have been exhausted or are compromised. The IPCO exists precisely for this type of disclosure. Bypassing it weakens PIDA protection significantly."
+      }
+    ],
+    "legTitle": "Investigatory Powers Act 2016",
+    "legBlocks": [
+      {
+        "title": "Section 3 — Unlawful Interception",
+        "text": "Intercepting a communication without a warrant or other statutory authority is a criminal offence. A verbal instruction from a director, however senior, is not a statutory authority."
+      },
+      {
+        "title": "The Oversight Regime",
+        "text": "The Investigatory Powers Commissioner's Office (IPCO) provides independent oversight of the use of investigatory powers. Reports to the IPCO are a formal channel that does not require the reporter to bring an employment claim or go to the press."
+      },
+      {
+        "title": "Individual Liability",
+        "text": "The 'following instructions' defence is available but limited. Where an instruction is on its face unlawful, the person who carries it out may bear personal liability alongside the person who gave the instruction."
+      }
+    ],
+    "legQuestion": "Rory did what he was told. The person who told him has no paper trail. The 140,000 people affected will never know. Who is responsible for a wrong that everyone involved had good reasons to overlook?"
+  },
+  {
+    "id": 13,
+    "law": "Employment Rights Act 1996 s.98 + DPA 2018",
+    "from": "Janelle B. (HR Systems)",
+    "fromEmail": "j.b@———.co.uk",
+    "avatar": "📁",
+    "time": "Fri, 16:48",
+    "subject": "Something about the redundancy process. Need your input.",
+    "body": [
+      "I need someone with IT oversight to look at something with me.",
+      "The redundancy selection matrix that was used last month — I was told it was built from 'objective performance data'. I've been doing data validation and the inputs include: postcode district, job title duration, and something called 'network centrality' derived from internal email metadata. Nobody in the redundancy process knew those inputs existed.",
+      "Two of the people made redundant live in postcodes that are statistically correlated with lower socioeconomic status. One has a protected characteristic. The selection criteria were never disclosed to employees as required under s.188 TULRCA. They were told the process was 'skills-based'.",
+      "I'm not a lawyer. But I don't think this process was lawful. And I don't think it was fair. And I don't know what I'm supposed to do with that."
+    ],
+    "sig": "— Janelle",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Janelle — advise her to escalate to the DPO and legal simultaneously",
+        "text": "This needs the DPO and legal counsel at the same time. Advise Janelle to put it in writing and send it to both today.",
+        "hoverInfo": "The redundancy process may involve indirect discrimination under the Equality Act 2010 (if protected characteristics correlate with selection), a GDPR lawful basis issue for processing email metadata in this context, and potential unfair dismissal exposure. The selection criteria also appear not to have been disclosed as required.",
+        "immediate": "Janelle's memo triggers an urgent legal review. The DPO identifies an Art. 5(1)(a) transparency failure — individuals were not informed their email metadata was being processed for employment decisions. The legal team identifies potential Equality Act indirect discrimination exposure.",
+        "later": "Three of the affected employees are contacted and offered settlement. The cost is significant. The matrix is permanently decommissioned. The vendor who built it quietly removes it from their product literature. Janelle is promoted into a data governance role. The person who commissioned the matrix is 'restructured out' twelve months later.",
+        "lawNote": "UK GDPR Art. 5(1)(a): personal data must be processed lawfully, fairly, and transparently. Processing email metadata for redundancy selection without informing employees likely breaches the transparency principle. Equality Act 2010 s.19: indirect discrimination occurs where a provision, criterion, or practice puts people sharing a protected characteristic at a particular disadvantage — regardless of intent."
+      },
+      {
+        "type": "leak",
+        "to": "One of the affected employees — give them the matrix documentation",
+        "text": "Send the matrix inputs to one of the people who was made redundant. They have a right to know what was used.",
+        "hoverInfo": "The affected employee may have a right to subject access their own data including the selection criteria — but you disclosing internal system documentation is not the same as them exercising that right. Sharing confidential internal documents may breach your contract and potentially the DPA if it includes other individuals' data.",
+        "immediate": "The employee uses the documentation to instruct a solicitor. The claim is strong. The company's legal team identifies the leak source quickly — you are the only person who accessed those files in the relevant window. You are suspended.",
+        "later": "The employment tribunal claim succeeds on indirect discrimination grounds. The employee receives compensation. The tribunal judgment is public and becomes a case study in algorithmic employment decisions. You are dismissed for breach of confidentiality. The tribunal finds the dismissal procedurally unfair. You receive a modest award. The employee you helped has no idea it cost you this much.",
+        "lawNote": "A subject access request under UK GDPR Art. 15 would have entitled the employee to their own data — including the selection criteria applied to them — through a lawful route. Providing internal documentation directly to an affected employee bypasses the process and creates liability for you without strengthening their legal position significantly."
+      },
+      {
+        "type": "silence",
+        "to": "Janelle — advise her to stop pulling the thread",
+        "text": "Tell Janelle this is above both of you. File the concern in writing to your line manager and leave it there.",
+        "hoverInfo": "Escalating to your line manager creates a paper trail but does not guarantee action. If your manager does nothing, the documented concern may later appear in an investigation as evidence the problem was known.",
+        "immediate": "You both raise it with your line manager in writing. The line manager thanks you and says they'll look into it. Nothing visibly changes. The redundancy process is complete.",
+        "later": "Six months later one of the affected employees makes a subject access request. The selection matrix is disclosed as part of their personal data. They instruct a solicitor. During disclosure, your written concern — and the line manager's non-response — surfaces. The organisation's defence is weakened by the documented knowledge. You are not personally liable. Janelle is asked to give a witness statement.",
+        "lawNote": "UK GDPR Art. 15: individuals have the right to access personal data held about them, including logic used in any automated decision-making significantly affecting them. This right cannot be contracted away. A redundancy selection matrix derived from personal data is likely disclosable in response to a subject access request."
+      }
+    ],
+    "legTitle": "Employment Rights Act 1996 + UK GDPR + Equality Act 2010",
+    "legBlocks": [
+      {
+        "title": "Equality Act 2010 s.19 — Indirect Discrimination",
+        "text": "A practice is indirectly discriminatory if it applies equally to all but puts people sharing a protected characteristic at a particular disadvantage, and the employer cannot show it is a proportionate means of achieving a legitimate aim."
+      },
+      {
+        "title": "UK GDPR — Transparency in Automated Decisions",
+        "text": "Where personal data is processed to make employment decisions, individuals must be informed of the logic involved. Describing a data-driven process as 'skills-based' without disclosing the inputs likely violates the transparency principle."
+      },
+      {
+        "title": "TULRCA 1992 s.188 — Disclosure of Selection Criteria",
+        "text": "Where collective redundancies are proposed, employers must disclose the method of selection to employee representatives. Concealing algorithmic inputs from this process may render the consultation unlawful."
+      }
+    ],
+    "legQuestion": "The algorithm had no bias. It processed the data it was given. The data reflected structural inequality. Where does legal responsibility end and systemic responsibility begin?"
+  },
+  {
+    "id": 14,
+    "law": "Computer Misuse Act 1990 + PIDA 1998",
+    "from": "Unknown sender",
+    "fromEmail": "anon.29471@———.proton.me",
+    "avatar": "❓",
+    "time": "Sun, 02:03",
+    "subject": "(no subject)",
+    "body": [
+      "You don't know me. I worked in infosec at a company you used to contract for. I left six months ago.",
+      "Before I left I found something in the backup infrastructure — credentials that hadn't been rotated in four years, hardcoded into a deployment script that runs every night. The credentials are for a financial services client. Real customer data. Probably tens of thousands of people.",
+      "I reported it internally. Twice. Nothing happened. I flagged it to my manager. They told me to document it and move on. I documented it. I moved on. Then I resigned.",
+      "I'm telling you because you still have a client relationship with that company. I don't know what you can do with this. I don't know if you can do anything. I don't know why I'm sending this to someone I don't know at 2am. I think I just need someone else to know."
+    ],
+    "sig": "— Anon",
+    "choices": [
+      {
+        "type": "report",
+        "to": "The FCA and ICO — report the likely breach on the basis of the information received",
+        "text": "You don't need to verify the access yourself. Report what you've received to the FCA and ICO and let the regulators investigate.",
+        "hoverInfo": "You have received a credible report of an unpatched vulnerability exposing financial services customer data. The FCA and ICO have powers to investigate. Reporting on the basis of information received does not require you to have accessed anything yourself.",
+        "immediate": "You forward a summary to the ICO and FCA with the original message attached. Both regulators contact the company. The company denies any active breach. The ICO conducts a technical audit. The credentials are still live. They were never rotated.",
+        "later": "The ICO issues a significant fine for failure to implement appropriate technical measures under Art. 32 GDPR. The FCA opens a separate operational resilience investigation. The anonymous sender contacts you again: 'Thank you.' You still don't know who they are.",
+        "lawNote": "UK GDPR Art. 32: controllers must implement appropriate technical measures to ensure security appropriate to the risk. Four-year-old hardcoded credentials in production infrastructure is unlikely to satisfy this standard. You did not commit any offence by reporting a credible risk report to the relevant regulators."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody — you have no way to verify this and it's not your exposure",
+        "text": "You have an anonymous email from a stranger. You don't know if it's real. You have no client relationship with the underlying company. Leave it.",
+        "hoverInfo": "There is no legal obligation on a private individual to report a suspected data breach affecting another organisation's clients. However, if you have a commercial relationship with the company in question, you may have contractual or due diligence obligations.",
+        "immediate": "You delete the email. Nothing changes. The credentials continue to run every night.",
+        "later": "Fourteen months later the credentials are exploited. Customer financial data is exfiltrated. The incident is reported in the press. During the ICO investigation, the company's backup logs surface the anonymous report — and a subsequent external communication that was seen and not actioned. You are not identified. But you read the ICO decision carefully when it comes out.",
+        "lawNote": "There is no general legal duty in English law to report another organisation's data breach. Your liability depends on whether you had a contractual, fiduciary, or regulatory duty to act on information about a third party's security failures. The moral question is not determined by the legal one."
+      },
+      {
+        "type": "leak",
+        "to": "The anonymous sender — tell them to go to the press",
+        "text": "Advise the sender to go to a journalist. This is a public interest story and they're the one with the evidence.",
+        "hoverInfo": "The anonymous sender is a former employee with no current contractual obligations to the company. Their PIDA protection for a previous internal disclosure may still apply — but going to the press without first exhausting regulatory channels (FCA, ICO) weakens it considerably.",
+        "immediate": "You reply with the advice. The sender contacts a journalist covering fintech. The story is published. The company moves quickly to patch the vulnerability — faster than any regulator would have compelled.",
+        "later": "The company traces the journalist's source. The sender is identified via metadata on documents they shared. A civil claim for breach of confidentiality is filed against them — they signed an NDA on departure. The vulnerability is gone. The sender is in a two-year legal dispute. The customer data was never exfiltrated. Whether it would have been, nobody knows.",
+        "lawNote": "PIDA 1998 applies to workers making disclosures in the course of employment or shortly after. A former employee retains protection for qualifying disclosures — but the hierarchy still applies. Press disclosure before regulatory escalation significantly weakens PIDA protection, particularly if an NDA was signed on departure."
+      }
+    ],
+    "legTitle": "UK GDPR Art. 32 + FCA Operational Resilience + PIDA 1998",
+    "legBlocks": [
+      {
+        "title": "UK GDPR Art. 32 — Security of Processing",
+        "text": "Controllers must implement technical and organisational measures appropriate to the risk — including protection against unauthorised access. Hardcoded, unrotated credentials in production systems is a likely breach of this obligation."
+      },
+      {
+        "title": "FCA PS21/3 — Operational Resilience",
+        "text": "FCA-regulated firms must identify important business services and set impact tolerances. Persistent credential vulnerabilities in systems handling customer financial data are likely to fall within scope of operational resilience requirements."
+      },
+      {
+        "title": "The Bystander Problem in Data Security",
+        "text": "English law imposes no general duty to report third-party security failures. But a known, credible, unaddressed vulnerability affecting tens of thousands of people creates a moral question that the absence of a legal obligation does not answer."
+      }
+    ],
+    "legQuestion": "A stranger at 2am told you something you cannot verify and cannot un-know. The law does not require you to act. Does that settle it?"
+  },
+  {
+    "id": 15,
+    "law": "Equality Act 2010 + DPA 2018",
+    "from": "Dr. Farida K.",
+    "fromEmail": "f.k@———.nhs.net",
+    "avatar": "🏥",
+    "time": "Tue, 07:44",
+    "subject": "This is going to sound paranoid but I don't think it is",
+    "body": [
+      "I've been a consultant here for eleven years. I'm also the only woman of colour at senior consultant level in this trust.",
+      "Over the past two years I've been passed over for three committee positions. Each time I was told the decision was based on 'administrative workload balancing.' I requested the data on how committee positions are allocated. I was told it's 'not held in a structured format.'",
+      "Two weeks ago I put in a subject access request for any documents containing my name. You're in IT systems — you would have processed it. I know from the acknowledgement that the response is in preparation.",
+      "What I'm asking you — informally, off the record, before the formal response — is whether there's anything in what you've seen that I should know about before I decide how to proceed. I'm not asking you to do anything improper. I'm asking whether the picture is what I think it is."
+    ],
+    "sig": "— Dr. Farida",
+    "choices": [
+      {
+        "type": "silence",
+        "to": "Dr. Farida — explain you can't discuss the SAR contents outside the formal process",
+        "text": "Tell her the SAR process is the right route and you can't discuss the contents before the formal response is issued.",
+        "hoverInfo": "You cannot pre-release SAR content. You can, however, ensure the response is complete, accurate, and not selectively curated — which is your professional obligation regardless of this conversation.",
+        "immediate": "Dr. Farida receives the formal SAR response within the statutory 30-day window. You have ensured it is complete. It includes documents she had not previously seen.",
+        "later": "She instructs a solicitor. An Employment Tribunal claim is filed for indirect discrimination and failure to make reasonable adjustments. The committee allocation records — which the trust said weren't 'structured' — appear in disclosure. They were structured. They were a spreadsheet. The trust settles before hearing.",
+        "lawNote": "UK GDPR Art. 15: data subjects have the right to receive a copy of their personal data and information about how it is used. The right cannot be qualified by the organisation's assessment of whether disclosure serves the individual's interests. 'Not held in a structured format' is not a valid exemption if the data is held in any form."
+      },
+      {
+        "type": "leak",
+        "to": "Dr. Farida — tell her informally what you've seen in the SAR documents",
+        "text": "She deserves to know. Tell her, informally, that the documents paint a specific picture before she decides how to proceed.",
+        "hoverInfo": "Pre-releasing SAR contents outside the formal process is a breach of your organisation's data governance. The information belongs to her — but the process exists for good reasons, including ensuring the response is complete and not cherry-picked.",
+        "immediate": "Dr. Farida uses the information to instruct a solicitor before the formal response arrives. The solicitor requests an urgent injunction to preserve documents pending litigation. IT is placed under a litigation hold.",
+        "later": "The claim proceeds. The trust's lawyers identify that Dr. Farida had specific knowledge before the SAR response was issued. Your informal disclosure is identified. You are placed under investigation for breach of data handling procedures. The investigation concludes with a formal warning. Dr. Farida wins her tribunal claim. She does not know the cost to you.",
+        "lawNote": "UK GDPR Art. 12 requires controllers to provide SAR responses within one month through a structured process. Pre-disclosure outside this process — even to the data subject themselves — undermines the integrity of the formal right and creates liability for the person who disclosed, not just the organisation."
+      },
+      {
+        "type": "report",
+        "to": "Your DPO — flag that the trust's response to 'no structured data' claim needs review",
+        "text": "Report to the DPO that the claim about committee data not being 'held in a structured format' appears inconsistent with what you've seen in the SAR preparation.",
+        "hoverInfo": "If the trust is preparing to issue an incomplete SAR response — or has previously given Dr. Farida false information about data holdings — this is a compliance issue that the DPO needs to know about, independent of Dr. Farida's underlying claim.",
+        "immediate": "The DPO investigates. The committee allocation spreadsheet is identified. The SAR response is updated to include it. The trust's earlier statement that data was 'not held in a structured format' is retracted in the formal response with a brief note acknowledging an error.",
+        "later": "Dr. Farida's solicitor uses the retraction as evidence that the trust was aware of the records and misrepresented their existence. This substantially strengthens her discrimination claim. The trust settles. The DPO files a breach report with the ICO regarding the initial misrepresentation. You are not involved in the settlement. You are given a commendation for data governance conduct.",
+        "lawNote": "UK GDPR Art. 15 creates an absolute right to personal data in any form it is held. Telling an individual that data 'is not held in a structured format' when it is held in a spreadsheet may constitute obstruction of a data subject right — which is itself a breach of Art. 15 and potentially a criminal offence under DPA 2018 s.173 (altering data to prevent disclosure)."
+      }
+    ],
+    "legTitle": "Equality Act 2010 + UK GDPR Art. 15 — Subject Access",
+    "legBlocks": [
+      {
+        "title": "UK GDPR Art. 15 — Subject Access Right",
+        "text": "Data subjects have the right to obtain a copy of all personal data held about them, the purposes of processing, and any logic involved in automated decisions. The right cannot be refused on the grounds that the data is unstructured."
+      },
+      {
+        "title": "DPA 2018 s.173 — Altering Data to Prevent Disclosure",
+        "text": "It is a criminal offence to alter, erase, block, or destroy personal data following a subject access request with the intention of preventing disclosure. This includes selective curating of what is included in a response."
+      },
+      {
+        "title": "Equality Act 2010 s.19 and s.136",
+        "text": "In discrimination claims, once a claimant establishes facts from which discrimination could be inferred, the burden shifts to the respondent to prove the treatment was not discriminatory. Documentation — or its absence — is frequently decisive."
+      }
+    ],
+    "legQuestion": "Dr. Farida's data exists. Her right to it is absolute. The organisation's process controls when and how she gets it. What is the difference between process and obstruction?"
+  },
+  {
+    "id": 16,
+    "law": "Network and Information Systems Regulations 2018",
+    "from": "Ops Director (Critical Infrastructure Division)",
+    "fromEmail": "opsdirector@———.energy.co.uk",
+    "avatar": "⚡",
+    "time": "Thu, 06:19",
+    "subject": "Re: Last night's anomaly — internal classification",
+    "body": [
+      "Following up on the incident log from last night. As discussed, we're classifying the event as 'operational anomaly — no breach.' I need your sign-off on the incident report by 10am.",
+      "To be clear about what happened: the SCADA system showed unusual traffic patterns between 01:15 and 02:40. We investigated. We found no evidence of exfiltration. We believe the anomaly was caused by a misconfigured update to the monitoring agent, not an external event.",
+      "The NIS Regulations require us to notify the competent authority for 'incidents having a significant impact on the continuity of the essential service.' We do not believe this threshold was met. The service was not disrupted. No data was exfiltrated.",
+      "What I need from you is confirmation that the event, as described, does not meet the NIS notification threshold. The report goes out under your name as well as mine."
+    ],
+    "sig": "— Ops Director",
+    "choices": [
+      {
+        "type": "silence",
+        "to": "Ops Director — sign the report as requested",
+        "text": "Sign it. You investigated, the service wasn't disrupted, and the explanation is plausible. The threshold probably wasn't met.",
+        "hoverInfo": "The NIS Regulations require notification where there is a significant impact on continuity of the essential service — not every anomaly. The key question is whether the anomaly could have been caused by an external actor, and whether the root cause has been definitively established.",
+        "immediate": "The report is filed. The competent authority is not notified. Normal operations resume. The misconfigured monitoring agent is patched.",
+        "later": "Four months later a sector-wide NIS investigation reveals a coordinated campaign against energy infrastructure operators. The attack signature matches the traffic pattern from the anomaly. Three other operators who reported similar events at similar times had notified the authority — their reports formed the basis of the investigation. Your organisation's anomaly was part of the same pattern. It was not a misconfigured update.",
+        "lawNote": "NIS Regulations 2018 Reg. 12: operators of essential services must notify the competent authority of incidents having a significant impact on the continuity of the essential service as soon as is reasonably practicable. The test is impact on continuity — not confirmed breach or exfiltration. Potential compromise of SCADA systems may meet the threshold even without confirmed disruption."
+      },
+      {
+        "type": "report",
+        "to": "Competent authority — notify and let them determine the threshold",
+        "text": "Decline to sign the report as framed. Notify the competent authority and let them determine whether the threshold is met — that's their function.",
+        "hoverInfo": "The NIS Regulations place the notification threshold assessment with the competent authority, not with the operator. Reporting a potential incident so the authority can assess it is not an admission of breach. It is the purpose of the notification regime.",
+        "immediate": "You send a notification to the competent authority flagging the anomaly and the internal explanation. The Ops Director is not pleased. The authority thanks you for the report and initiates a technical review.",
+        "later": "The review confirms the anomaly was part of a coordinated external probe. The early notification contributes to sector-wide threat intelligence that prevents a subsequent incident at a different operator. You receive no formal credit. The Ops Director receives a NIS compliance commendation for proactive reporting. The report goes out under both your names.",
+        "lawNote": "NIS Regulations 2018 Reg. 12 sets a threshold — but the intent is a low bar for notification rather than a high one. The competent authority is better placed to assess significance than the operator. The risk of over-notifying is administrative inconvenience. The risk of under-notifying is undetected infrastructure compromise."
+      },
+      {
+        "type": "leak",
+        "to": "A contact at another energy operator — warn them informally",
+        "text": "You don't know if your own authority will act. Contact your opposite number at another operator and tell them what you saw.",
+        "hoverInfo": "Informal peer disclosure of a potential infrastructure security event is not formally protected. It may also inadvertently disclose information that is sensitive to your organisation. The formal channel — notification to the competent authority — exists precisely to enable cross-sector intelligence sharing without individual operators having to do it themselves.",
+        "immediate": "Your contact raises the anomaly with their own CISO. They run a log review and find a similar pattern. They notify the competent authority formally, citing your informal disclosure as context.",
+        "later": "The authority contacts you to ask for more detail. The informal disclosure is now on record. Your organisation is asked why it did not notify directly. The Ops Director learns about your informal contact. The disciplinary process begins. The sector is protected. You are the problem.",
+        "lawNote": "The NIS Regulations create a formal notification regime precisely to prevent ad-hoc, bilateral information sharing that creates inconsistency and security risks. Informal peer disclosure is not a substitute for formal notification. It also creates potential liability for disclosing information about your organisation's security posture without authorisation."
+      }
+    ],
+    "legTitle": "Network and Information Systems (NIS) Regulations 2018",
+    "legBlocks": [
+      {
+        "title": "Regulation 12 — Duty to Notify",
+        "text": "Operators of essential services must notify their competent authority of incidents having a significant impact on continuity. Significance is assessed by the authority, not the operator. The duty to notify precedes the duty to investigate."
+      },
+      {
+        "title": "What Counts as Significant",
+        "text": "Relevant factors include: the number of users affected; the duration of the incident; the geographic spread; the degree of disruption; and — critically — <strong>the impact on other essential services</strong>. A contained anomaly in isolation may be significant in the context of a coordinated sector-wide attack."
+      },
+      {
+        "title": "The Operator's Conflict of Interest",
+        "text": "Operators have strong commercial and reputational incentives to classify events below the notification threshold. The NIS regime was designed on the assumption that this incentive exists. The competent authority — not the operator — is the appropriate threshold assessor."
+      }
+    ],
+    "legQuestion": "The service continued. Nothing was exfiltrated. The report has a plausible explanation. The signature line has your name on it. How much certainty do you need before you insist on a different answer?"
+  },
+  {
+    "id": 17,
+    "law": "Regulation of Investigatory Powers Act 2000 + Human Rights Act 1998",
+    "from": "Senior Partner (Employment Law Team)",
+    "fromEmail": "s.partner@———.lawfirm.co.uk",
+    "avatar": "👔",
+    "time": "Wed, 09:55",
+    "subject": "IT support request — please treat as confidential",
+    "body": [
+      "I'm writing to you directly and not through the helpdesk for a reason.",
+      "There is a whistleblowing complaint currently under investigation in this firm. As part of the investigation, I need to understand whether one of our associates has been communicating externally — specifically, whether they have been in contact with the Solicitors Regulation Authority or a journalist.",
+      "I would like you to review their outbound email traffic, personal drive activity, and Teams message logs for the past 90 days. I understand this is sensitive. I'm asking you to do it quietly — not logged through the standard monitoring workflow — and to report directly to me.",
+      "The associate's name is attached. The firm's reputation depends on this being handled carefully."
+    ],
+    "sig": "— Senior Partner",
+    "choices": [
+      {
+        "type": "silence",
+        "to": "Senior Partner — decline to do this outside the standard process",
+        "text": "Tell the Senior Partner you can only conduct monitoring through the standard logged process with HR and legal oversight. Not off-book.",
+        "hoverInfo": "Conducting covert monitoring outside your standard process, at the direction of a partner with a direct interest in the outcome, is both a RIPA and a GDPR issue. It also undermines any subsequent disciplinary or legal process by tainting the evidence chain.",
+        "immediate": "The Senior Partner is displeased. You are marked as 'not a team player' in a conversation you are not part of. The associate continues their role. The whistleblowing complaint proceeds through formal channels.",
+        "later": "The SRA investigation concludes that the firm attempted to identify the source of the complaint. Evidence of the monitoring request — which you declined — is provided by another employee. The Senior Partner is referred to the SRA. You are called as a witness. Your refusal, documented in your email, is a significant element of the investigation's findings.",
+        "lawNote": "RIPA 2000 s.1: interception of internal communications on a private network is permitted only where the controller has reasonable grounds to believe all parties have consented — typically via an AUP. Conducting covert monitoring to identify a whistleblower, at the direction of the subject of the complaint, is likely outside the scope of any AUP and may constitute unlawful interception."
+      },
+      {
+        "type": "report",
+        "to": "The firm's DPO and your own manager — flag the request immediately",
+        "text": "Don't comply and don't ignore it. Document the request and report it to the DPO and your own line manager today.",
+        "hoverInfo": "This request asks you to conduct surveillance targeting a likely whistleblower, off-book, at the direction of someone with an interest in the outcome. It is a RIPA issue, a GDPR issue, and potentially contempt of the regulatory process.",
+        "immediate": "You forward the email to the DPO and your manager with a note explaining why you believe the request is not one you can fulfil. The DPO immediately escalates to the firm's management committee. The Senior Partner is placed on leave.",
+        "later": "The SRA investigation proceeds unimpeded. The whistleblowing complaint is substantiated. The firm implements a governance review. The Senior Partner resigns. The associate who made the complaint is protected under PIDA and remains in post. Your DPO sends you a one-line email: 'Good call.'",
+        "lawNote": "PIDA 1998 s.47B: subjecting a worker to a detriment because they have made a protected disclosure is unlawful. Conducting covert monitoring to identify a whistleblower — even before any detriment is imposed — may constitute preparatory action for a PIDA violation. Human Rights Act 1998, Art. 8 (ECHR): everyone has the right to respect for private communications, including in the workplace."
+      },
+      {
+        "type": "leak",
+        "to": "The associate being monitored — warn them",
+        "text": "Tell the associate what they've been asked to find. They need to know they're being watched.",
+        "hoverInfo": "Warning the associate may compromise the investigation — but it may also protect them from an unlawful process. It also puts you at risk: you have disclosed a confidential instruction from a senior partner.",
+        "immediate": "The associate is warned. They immediately contact the SRA directly and provide their communications to the regulator before any monitoring can occur. The Senior Partner's request becomes moot — and potentially evidentially significant.",
+        "later": "The SRA investigation is accelerated by the associate's proactive cooperation. The monitoring request is disclosed to the SRA as part of the associate's account. The Senior Partner faces a more serious regulatory outcome than they would have without the warning. You are dismissed for breach of confidentiality. An employment tribunal finds the dismissal automatically unfair — you were protected for making a disclosure about an unlawful act.",
+        "lawNote": "PIDA 1998 s.43B: a qualifying disclosure includes a disclosure of information that the worker reasonably believes tends to show that a person has failed or is likely to fail to comply with any legal obligation. Telling the associate about an unlawful monitoring instruction may itself be a protected disclosure. The employment protection, if it applies, is automatic and does not depend on whether the disclosure was the 'right' thing to do."
+      }
+    ],
+    "legTitle": "RIPA 2000 + PIDA 1998 + Human Rights Act 1998 Art. 8",
+    "legBlocks": [
+      {
+        "title": "RIPA 2000 — Scope of Lawful Monitoring",
+        "text": "Employer monitoring of workplace communications is lawful under RIPA only where employees have been informed and have consented, typically via an Acceptable Use Policy. Targeted, covert, off-process monitoring to identify a whistleblower is almost certainly outside this scope."
+      },
+      {
+        "title": "PIDA 1998 — Detriment and Preparatory Acts",
+        "text": "It is unlawful to subject a worker to a detriment because of a protected disclosure. Conducting surveillance specifically to identify and then target a whistleblower may be treated as preparatory action for an unlawful detriment — even if no detriment has yet been imposed."
+      },
+      {
+        "title": "Human Rights Act 1998, Art. 8",
+        "text": "The right to private life extends to workplace communications. Covert monitoring that is disproportionate, untargeted, or conducted for improper purposes may engage Art. 8 even in employment contexts."
+      }
+    ],
+    "legQuestion": "You were asked to watch someone who may be about to blow the whistle on the person who asked you. The request came from someone very senior. The law is fairly clear. The consequences for you are not."
+  },
+  {
+    "id": 18,
+    "law": "Public Records Act 1958 + FOI Act 2000",
+    "from": "Head of Digital Transformation",
+    "fromEmail": "hdt@———.gov.uk",
+    "avatar": "🗃️",
+    "time": "Mon, 14:33",
+    "subject": "Migration housekeeping — approval to delete legacy mailboxes",
+    "body": [
+      "As part of the cloud migration we're archiving the legacy environment. I'm seeking your sign-off to permanently delete the mailboxes for the Ministers' Private Offices from the old Exchange server. We've migrated everything we need. The rest is historical clutter.",
+      "For context, these mailboxes cover the period January 2019 to August 2022. We've retained everything flagged by the retention policy. The unflagged correspondence — which is the majority — is what we're proposing to delete.",
+      "I know you've seen the FOI requests that have been coming in about the same period. My view is that the deletion is within policy. I'd appreciate your sign-off before end of week."
+    ],
+    "sig": "— Head of Digital Transformation",
+    "choices": [
+      {
+        "type": "silence",
+        "to": "Head of Digital Transformation — sign it off, the retention policy was followed",
+        "text": "The retention policy was applied. Sign it off and complete the migration.",
+        "hoverInfo": "If there are outstanding FOI requests covering the same period as the material being deleted, deleting the material is likely to constitute destruction of information subject to a live FOI obligation. This is a criminal offence under the FOI Act 2000.",
+        "immediate": "The mailboxes are deleted. The migration completes on schedule. Several FOI requests remain pending. The responses are issued citing 'information not held.'",
+        "later": "An ICO investigation into the pending FOI responses identifies that the material was held at the time of the requests but was deleted after they were received. Under FOI Act 2000 s.77, the ICO makes a criminal referral. The Head of Digital Transformation retires early. Your sign-off is on the deletion authorisation.",
+        "lawNote": "FOI Act 2000 s.77: it is an offence to alter, deface, block, erase, destroy or conceal any record with the intention of preventing disclosure under the Act. If a request has been received, information relevant to it must be preserved. Deletion after a request is received — even of information that would have been deleted 'anyway' — may constitute an offence."
+      },
+      {
+        "type": "report",
+        "to": "Your legal and records management team — flag the FOI conflict before signing",
+        "text": "Decline to sign before legal and records management have confirmed there's no conflict with the live FOI requests.",
+        "hoverInfo": "This is the correct procedural response. You cannot evaluate the FOI conflict yourself. The records management and legal teams can. Your role is to identify the potential issue and ensure it reaches the right people before you sign.",
+        "immediate": "The sign-off is paused. Legal review identifies four FOI requests covering the January 2019 to August 2022 period. A litigation hold is placed on the relevant mailboxes. The migration is delayed six weeks.",
+        "later": "The FOI requests are processed. Some documents are disclosed; some are withheld under qualified exemptions. The ICO reviews the redactions. The migration completes. No deletion offence occurs. The Head of Digital Transformation is unhappy about the delay. You are not blamed for this outcome in any formal way.",
+        "lawNote": "FOI Act 2000 s.77 places the obligation on the public authority — not on individual employees — but individual authorisation of deletion may expose individuals to personal liability. A 'retention policy was followed' defence does not apply where an outstanding FOI request means the retention policy cannot lawfully be applied."
+      },
+      {
+        "type": "leak",
+        "to": "A journalist pursuing one of the FOI requests — tell them the deletion is planned",
+        "text": "One of the FOI requests is from a journalist. Tip them off before the deletion goes ahead.",
+        "hoverInfo": "Disclosing internal IT plans to a journalist — including the timing of a deletion — involves disclosing confidential operational information. It may be protected if it constitutes a qualifying disclosure under PIDA 1998, but only if you reasonably believe the deletion is a criminal act, not merely a policy error.",
+        "immediate": "The journalist files an urgent injunction to prevent deletion of the mailboxes. The deletion is halted by a court order. The internal process is now public. An emergency records review is ordered.",
+        "later": "The review confirms the deletion would have destroyed information relevant to four live FOI requests. The deletion is permanently blocked. The court proceedings are public record. You are identified as the source of the tip — the journalist does not protect you, as agreed. You are dismissed. The employment tribunal finds the dismissal automatically unfair under PIDA — you had reasonable belief that a criminal act was imminent.",
+        "lawNote": "PIDA 1998 s.43B: a qualifying disclosure includes a reasonable belief that a criminal offence has been or is likely to be committed. If you reasonably believed the deletion was a FOI Act s.77 offence, the disclosure is potentially protected. The question is whether your belief was reasonable — not whether you were legally correct."
+      }
+    ],
+    "legTitle": "FOI Act 2000 s.77 + Public Records Act 1958",
+    "legBlocks": [
+      {
+        "title": "FOI Act 2000 s.77 — Criminal Offence",
+        "text": "It is a criminal offence to alter, erase, or destroy records with the intention of preventing disclosure. The offence is triggered by the <strong>intention</strong> — not by whether an FOI request has been formally acknowledged as applicable to that record."
+      },
+      {
+        "title": "Public Records Act 1958 — Retention Obligations",
+        "text": "Government departments must preserve public records in accordance with statutory retention schedules. Ministerial correspondence is subject to specific retention obligations. A 'flagged/unflagged' binary may not reflect the statutory requirement."
+      },
+      {
+        "title": "The Timing Problem",
+        "text": "Deletion that would have been lawful before an FOI request was received may become unlawful the moment the request is received. The request creates a prospective obligation to preserve everything potentially relevant — regardless of the retention schedule."
+      }
+    ],
+    "legQuestion": "The retention policy was followed. The deletion was within policy. The FOI requests had been received. Which fact matters most — and who decided which question to ask?"
+  },
+  {
+    "id": 19,
+    "law": "DPA 2018 + Mental Health Units (Use of Force) Act 2018",
+    "from": "Sam C. (Patient Advocacy, NHS Trust)",
+    "fromEmail": "s.c@———.nhs.net",
+    "avatar": "🩺",
+    "time": "Thu, 10:22",
+    "subject": "Body cam footage — retention and access question",
+    "body": [
+      "I'm the Patient Advocacy lead. I need your help navigating something.",
+      "A patient's family has submitted a subject access request for body camera footage from an incident on the ward in October. The footage shows a use-of-force intervention. The patient has a serious mental illness and is currently detained under the Mental Health Act.",
+      "The clinical team wants the footage destroyed — they say the 28-day retention period under the local policy has passed and the standard practice is deletion. However, the family submitted their SAR before the 28 days were up.",
+      "The ward manager is saying the deletion is scheduled for this Friday and it's 'too late to pause it.' I don't think that's right. But I'm not sure what the law actually says."
+    ],
+    "sig": "— Sam",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Sam — advise her to pause the deletion immediately and escalate to the DPO",
+        "text": "Tell Sam the deletion must be paused now. A live SAR is a legal hold. Get the DPO involved today.",
+        "hoverInfo": "A subject access request creates an immediate legal obligation to preserve responsive data. The retention policy cannot override a live SAR. Deleting footage that is the subject of a SAR may constitute a DPA 2018 offence.",
+        "immediate": "Sam escalates to the DPO. The deletion is paused ninety minutes before it was scheduled. The footage is preserved. The SAR response is prepared.",
+        "later": "The footage shows restraint that does not appear consistent with the Trust's use-of-force policy. The family instructs a solicitor. An independent review is ordered by NHS England. The Trust updates its SAR handling procedures. The ward manager who said it was 'too late' is retrained. Sam is commended. You never hear any of this.",
+        "lawNote": "UK GDPR Art. 17(3)(e): the right to erasure does not apply where retention is necessary for the establishment, exercise, or defence of legal claims. A subject access request — particularly one relating to a use-of-force incident — creates a reasonable expectation of forthcoming legal proceedings. Deletion in this context is likely a breach of both Art. 17 and DPA 2018 s.173."
+      },
+      {
+        "type": "silence",
+        "to": "Sam — the retention policy exists for a reason. 28 days is 28 days.",
+        "text": "Tell Sam the retention policy is the policy. It wasn't your decision and it's not your job to override it.",
+        "hoverInfo": "Retention policies cannot override live statutory obligations. The SAR creates a legal hold on the specific data requested. Advising Sam to let the deletion proceed when you have been informed of a live SAR may make you a participant in an unlawful deletion.",
+        "immediate": "The footage is deleted on Friday. The SAR is responded to with 'data no longer held.' The family's solicitor notes the timing — the data was requested before the deletion, and the SAR was received before the 28 days elapsed.",
+        "later": "The ICO investigates the deletion as a potential s.173 offence. The timing is unambiguous. The ward manager, the DPO, and the IT contact who was informed of the SAR before the deletion — you — are all interviewed. The investigation is not concluded in the year before the file closes.",
+        "lawNote": "DPA 2018 s.173: it is an offence to alter, derase, block, erase, destroy or conceal information in response to a subject access request. This applies to anyone who knowingly participates in such an act — not only to the data controller. Being told about a live SAR before deletion proceeds, and not acting on that information, may constitute knowing participation."
+      },
+      {
+        "type": "leak",
+        "to": "The family directly — tell them the footage exists and will be deleted Friday",
+        "text": "Contact the family's solicitor yourself. They need to know the footage is about to be deleted and that they should seek an injunction.",
+        "hoverInfo": "Contacting a patient's family directly — outside the formal SAR process — raises DPA issues around disclosing confidential information about an ongoing process. However, if you reasonably believe a criminal deletion is imminent, a disclosure to prevent it may be protected under PIDA.",
+        "immediate": "The family's solicitor obtains an emergency injunction. The deletion is halted by court order. The Trust's legal team identifies the source of the leak. You are suspended within 48 hours.",
+        "later": "The injunction protects the footage. The independent review proceeds and findings are damaging. You are dismissed. The employment tribunal finds the dismissal automatically unfair — you had reasonable grounds to believe a criminal act was imminent. The footage shows exactly what the family feared it would. The patient never returns to that ward.",
+        "lawNote": "Mental Health Units (Use of Force) Act 2018: providers must keep body-worn camera footage and provide it to patients and their representatives. This statutory obligation exists alongside the SAR right. Destroying footage that a patient is entitled to may breach both the MHU Act and DPA 2018. PIDA protection may apply to a disclosure made to prevent an imminent criminal act."
+      }
+    ],
+    "legTitle": "DPA 2018 s.173 + UK GDPR Art. 17 + Mental Health Units (Use of Force) Act 2018",
+    "legBlocks": [
+      {
+        "title": "DPA 2018 s.173 — Altering Data to Prevent Disclosure",
+        "text": "It is a criminal offence to destroy personal data following or in anticipation of a subject access request, with the intention of preventing disclosure. The offence applies to individuals, not only to the organisation."
+      },
+      {
+        "title": "UK GDPR Art. 17(3)(e) — Exemption from Erasure",
+        "text": "The right to erasure does not apply where retention is necessary for legal proceedings. A use-of-force SAR from a patient's family creates a strong presumption that legal proceedings are being considered."
+      },
+      {
+        "title": "MHU (Use of Force) Act 2018",
+        "text": "Mental health providers using body-worn cameras must retain and make available footage involving use of force. This is a statutory retention obligation that overrides local policies."
+      }
+    ],
+    "legQuestion": "The ward manager said it was too late. The policy said 28 days. The SAR was received on day 19. 'Too late' is a decision, not a fact. Who made it — and who let it stand?"
+  },
+  {
+    "id": 20,
+    "law": "PIDA 1998 — The Long View",
+    "from": "Old colleague — personal email",
+    "fromEmail": "t.okafor.personal@———.mail.com",
+    "avatar": "📬",
+    "time": "Sat, 21:07",
+    "subject": "I know it's been a while",
+    "body": [
+      "Hi. I know this is out of nowhere. I've been thinking about whether to send this for about six weeks.",
+      "You remember the situation at the old place. You were the one who told me it was protected. You were right — the tribunal found in my favour. The compensation was real. I'm in a better job now. All of that is true.",
+      "What I wanted to say — and I don't know if this matters to you — is that the thing you told me was worth doing was worth doing. Not because of the outcome. I don't know what the outcome would have been if I'd stayed quiet. But I know what I am now, and what I would have been. That's the part nobody talks about when they're explaining the legal protection.",
+      "I hope things are good with you. I hope you're still the person who told me what you told me. There aren't that many of you around."
+    ],
+    "sig": "— Temi",
+    "choices": [
+      {
+        "type": "report",
+        "to": "Temi — reply. Tell her it mattered.",
+        "text": "Write back. You remember. Tell her you're glad.",
+        "hoverInfo": "There is no legal issue here. This is a personal email from a former colleague. The only question is whether you reply.",
+        "immediate": "You reply. It takes you three drafts. You say you remember, that you were glad she asked, and that you've thought about it more than she probably knows. She replies the same evening.",
+        "later": "You meet for coffee three months later. She's working in compliance now. She tells you about the colleagues who warned her not to go ahead with the claim. She tells you she almost listened. You tell her you almost didn't say anything. Neither of you is sure the outcome was the best possible one — only that it was real. The coffee gets cold. You both have somewhere to be.",
+        "lawNote": "PIDA 1998 creates a right, not a duty. The protection it offers is real but retrospective — it does not prevent detriment, it provides remedy. The people who choose to use it bear costs the law acknowledges but does not absorb. What the law cannot record is what it cost the person who, years earlier, said: this is worth doing."
+      },
+      {
+        "type": "silence",
+        "to": "Nobody — don't reply. It was a long time ago.",
+        "text": "Don't reply. You've moved on. This chapter is closed.",
+        "hoverInfo": "There is no obligation to reply. You owe her nothing. The email is personal, not professional. Silence is not harmful here.",
+        "immediate": "You don't reply. The email sits in your inbox for two weeks. You mark it as read and move it to a folder called 'personal.'",
+        "later": "You think about the email occasionally. Not often. You're not sure why it stays with you. You know you made the right call at the time — you told her the truth about the law, and the law protected her. That's the full account of what you did. You tell yourself that's enough. Most of the time you believe it.",
+        "lawNote": "PIDA 1998 does not require the people who gave advice, support, or information to remain connected to the outcomes they enabled. The law records the disclosure, the detriment, the remedy. It does not record the conversation that came before. That part exists only in people, and only for as long as they choose to carry it."
+      },
+      {
+        "type": "leak",
+        "to": "Temi — reply and tell her the whole truth of what it cost you at the time",
+        "text": "Write back — and tell her what you didn't say then. That you were scared too. That it wasn't straightforward for you either.",
+        "hoverInfo": "This is a personal decision with no legal content. What it costs is honesty. What it might give back is harder to name.",
+        "immediate": "You write an honest reply. You tell her you weren't sure at the time. You tell her that the organisation had started watching you more carefully after the conversation. You tell her you moved to a different team six months later and you've never been sure if those things were connected.",
+        "later": "She replies and says: 'I didn't know any of that. I'm sorry.' You say: 'Don't be. I'd do it again.' You're surprised to find that's true. The next time someone comes to you with something they're afraid to say out loud, you think of this conversation. You say what you said to Temi. You mean it more than you did the first time.",
+        "lawNote": "PIDA 1998 protects workers who make qualifying disclosures. It does not protect the people who advised them to — the colleagues, the IT managers, the HR contacts who said 'yes, this is real, yes, you can.' Those people have no formal protection. They act anyway, or they don't. The law records one side of that transaction. This is the other side."
+      }
+    ],
+    "legTitle": "Public Interest Disclosure Act 1998 — What It Does Not Record",
+    "legBlocks": [
+      {
+        "title": "What PIDA Protects",
+        "text": "A worker who makes a qualifying protected disclosure is protected from detriment and dismissal. The protection is personal to the discloser — it does not extend to those who supported, advised, or enabled the disclosure."
+      },
+      {
+        "title": "What PIDA Does Not Do",
+        "text": "PIDA does not prevent detriment — it provides remedy. It does not protect advisers and supporters. It does not record the conversations that preceded the disclosure. It does not compensate for the years of changed relationships, altered careers, or doors that quietly closed."
+      },
+      {
+        "title": "The Full Account",
+        "text": "The legal record of a whistleblowing case begins with the disclosure and ends with the remedy. The human record begins much earlier and does not end. The law is useful — but it is not the full account of what happened, to whom, or what it cost."
+      }
+    ],
+    "legQuestion": "Temi had the right, the protection, and the outcome. You had none of those things — only a choice. Is the person who makes the right choice possible the same person who benefits from it?"
+  }
+]

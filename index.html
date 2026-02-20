@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avery's Inbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f2efe9;
+  --surface:  #faf8f5;
+  --border:   rgba(0,0,0,0.09);
+  --border2:  rgba(0,0,0,0.14);
+  --text:     #18160f;
+  --muted:    #7a7568;
+  --faint:    #b0aa9e;
+  --red:      #b83232;
+  --red-soft: rgba(184,50,50,0.07);
+  --amber:    #8a6000;
+  --amber-soft: rgba(138,96,0,0.08);
+  --green:    #1a5c38;
+  --green-soft: rgba(26,92,56,0.07);
+  --tag:      rgba(0,0,0,0.055);
+  --shadow:   0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Lora', Georgia, serif;
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 44px 1fr;
+  grid-template-columns: 230px 310px 1fr 300px;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* ── TITLEBAR ── */
+.titlebar {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  user-select: none;
+}
+.tl { width: 11px; height: 11px; border-radius: 50%; }
+.tl.r { background: #ff5f57; }
+.tl.y { background: #febc2e; }
+.tl.g { background: #28c840; }
+.app-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+.progress-wrap {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.progress-track {
+  width: 120px;
+  height: 2px;
+  background: var(--border2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+.progress-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 1px;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-section { padding: 0 12px; margin-bottom: 20px; }
+.sidebar-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 0 6px;
+  margin-bottom: 6px;
+}
+.folder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.12s;
+  color: var(--text);
+}
+.folder-item:hover { background: var(--tag); }
+.folder-item.active { background: var(--red-soft); color: var(--red); font-weight: 500; }
+.folder-left { display: flex; align-items: center; gap: 8px; }
+.folder-icon { font-size: 13px; width: 16px; }
+.badge {
+  background: var(--red);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 8px;
+  min-width: 16px;
+  text-align: center;
+}
+.badge.zero { background: var(--faint); }
+
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 4px 12px 16px; }
+
+.law-tag {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.12s;
+  letter-spacing: 0.5px;
+}
+.law-tag:hover { background: var(--tag); color: var(--text); }
+.law-tag.covered { color: var(--green); }
+.law-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); flex-shrink: 0; }
+.law-tag.covered .law-dot { background: var(--green); }
+
+.score-display {
+  margin-top: auto;
+  padding: 16px 14px 8px;
+  border-top: 1px solid var(--border);
+}
+.score-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 10px;
+}
+.score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.score-name { font-size: 11px; color: var(--muted); }
+.score-bar-wrap { width: 80px; height: 3px; background: var(--border2); border-radius: 2px; overflow: hidden; }
+.score-bar { height: 100%; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+.bar-report { background: var(--green); }
+.bar-leak { background: var(--red); }
+.bar-silence { background: var(--amber); }
+.score-n { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); }
+
+/* ── THREAD LIST ── */
+.thread-list {
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  background: var(--bg);
+}
+.thread-list-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.thread-list-title { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.thread-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.thread-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 1px;
+}
+
+.thread-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.1s;
+  position: relative;
+}
+.thread-item:hover { background: rgba(0,0,0,0.025); }
+.thread-item.active { background: var(--red-soft); }
+.thread-item.read { opacity: 0.55; }
+.unread-dot {
+  position: absolute;
+  left: 6px;
+  top: 18px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.thread-item.read .unread-dot { display: none; }
+.th-from {
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.th-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); font-weight: 400; }
+.th-subject { font-size: 12px; color: var(--muted); padding-left: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.th-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--tag);
+  color: var(--muted);
+  padding: 2px 5px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+/* ── EMAIL VIEW ── */
+.email-view {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+.email-top {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.email-subject-line {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.email-from-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--tag);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.from-block { flex: 1; }
+.from-name { font-size: 12.5px; font-weight: 500; }
+.from-addr { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); }
+.email-timestamp { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); }
+
+.law-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--red-soft);
+  border: 1px solid rgba(184,50,50,0.18);
+  color: var(--red);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.law-pill:hover { background: rgba(184,50,50,0.12); }
+.law-pill::before { content: '§'; font-size: 11px; }
+
+.email-body-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px 16px;
+}
+.email-body-scroll p {
+  font-size: 13.5px;
+  line-height: 1.95;
+  margin-bottom: 14px;
+  color: #2a2520;
+}
+.email-body-scroll p:last-child { margin-bottom: 0; }
+.email-sig {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* ── REPLY PANEL ── */
+.reply-panel {
+  border-top: 1px solid var(--border2);
+  padding: 14px 24px 16px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+.reply-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 10px;
+}
+.reply-options-wrap { margin-bottom: 10px; }
+.reply-options { display: flex; flex-direction: column; gap: 6px; }
+.reply-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  background: var(--bg);
+}
+.reply-opt:hover { border-color: var(--border2); background: rgba(0,0,0,0.02); }
+.reply-opt.selected { border-color: var(--red); background: var(--red-soft); }
+.opt-radio {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid var(--faint); flex-shrink: 0; margin-top: 2px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  position: relative;
+}
+.reply-opt.selected .opt-radio { border-color: var(--red); background: var(--red); }
+.reply-opt.selected .opt-radio::after {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%; background: #fff;
+}
+.opt-body { flex: 1; }
+.opt-to {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 2px;
+}
+.opt-text { font-size: 12px; line-height: 1.5; color: var(--text); }
+
+.hover-preview {
+  position: fixed;
+  z-index: 10000;
+  padding: 10px 14px;
+  max-width: min(360px, calc(100vw - 24px));
+  background: var(--surface);
+  border: 1px solid rgba(138,96,0,0.2);
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--amber);
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease, visibility 0.12s ease;
+}
+.hover-preview.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.send-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.send-btn {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  opacity: 0.35;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.send-btn.ready { opacity: 1; pointer-events: all; }
+.send-btn:hover { background: #932828; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(184,50,50,0.3); }
+.send-btn::after { content: '↑'; font-size: 14px; }
+
+/* ── LEGISLATION PANEL ── */
+.leg-panel {
+  overflow-y: auto;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+.leg-header {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.leg-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
+.leg-act-name { font-size: 13.5px; font-weight: 500; line-height: 1.3; }
+
+.leg-body { padding: 16px 18px; flex: 1; }
+
+.leg-block { margin-bottom: 18px; }
+.leg-block-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.leg-block-text {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.leg-block-text strong { color: var(--text); font-weight: 500; }
+
+.leg-obligations {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.leg-ob-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+.leg-ob-item {
+  display: flex;
+  gap: 8px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+.leg-ob-item::before { content: '→'; color: var(--red); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+
+.leg-question {
+  background: var(--amber-soft);
+  border-left: 2px solid var(--amber);
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--amber);
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  margin-top: 6px;
+}
+
+.empty-state {
+  padding: 32px 18px;
+  text-align: center;
+}
+.empty-icon { font-size: 28px; margin-bottom: 10px; }
+.empty-text { font-size: 12px; color: var(--faint); line-height: 1.7; }
+
+/* ── OUTCOME PANEL (top of right-hand column) ── */
+.outcome-panel {
+  display: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  max-height: min(65vh, 420px);
+  overflow-y: auto;
+}
+.outcome-panel.show { display: block; }
+
+.outcome-card {
+  background: var(--surface);
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+  overflow: hidden;
+  animation: slideDown 0.25s ease;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.outcome-top {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.outcome-law-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.outcome-sent-to {
+  font-size: 10px;
+  color: var(--faint);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 6px;
+}
+.outcome-title { font-size: 16px; font-style: italic; line-height: 1.3; margin-bottom: 0; }
+
+.timestamp-badge {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--faint);
+  letter-spacing: 1px;
+  background: var(--tag);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.outcome-immediate {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.outcome-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+.outcome-body-text {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.outcome-later {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: #f7f4ee;
+}
+.later-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.later-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.later-text {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.outcome-law-note {
+  padding: 10px 18px;
+  background: var(--green-soft);
+  border-left: 3px solid var(--green);
+}
+.outcome-law-note-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.outcome-law-note-text { font-size: 11px; line-height: 1.65; color: #1a4a2e; }
+
+.outcome-footer {
+  padding: 10px 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+.next-btn {
+  background: var(--text);
+  color: var(--surface);
+  border: none;
+  padding: 9px 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.next-btn:hover { background: var(--red); }
+.next-btn::after { content: '→'; }
+
+/* ── PROFILE OVERLAY ── */
+#profile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--text);
+  z-index: 600;
+  display: none;
+  overflow-y: auto;
+  padding: 60px 40px;
+}
+#profile-overlay.show { display: block; }
+
+.profile-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.profile-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 12px;
+}
+.profile-title {
+  font-size: 36px;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+.profile-summary {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.stat-box {
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+.stat-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+.profile-observations {
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.profile-obs-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 16px;
+}
+.observation {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.obs-bullet { color: var(--red); font-size: 18px; line-height: 1.4; flex-shrink: 0; }
+.obs-text { font-size: 13.5px; line-height: 1.8; color: rgba(255,255,255,0.65); }
+
+.profile-laws {
+  margin-bottom: 40px;
+}
+.profile-laws-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 16px;
+}
+.law-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.law-result-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  width: 140px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.law-result-text { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6); }
+
+.restart-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.6);
+  padding: 10px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+.restart-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* ── INTRO OVERLAY ── */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--text);
+  z-index: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.intro-inner { max-width: 520px; }
+.intro-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 20px;
+}
+.intro-title {
+  font-size: 42px;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.intro-body {
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 32px;
+}
+.intro-body strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+.intro-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.intro-btn {
+  background: #fff;
+  color: var(--text);
+  border: none;
+  padding: 12px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+.intro-btn:hover { background: var(--red); color: #fff; }
+
+/* Sending animation */
+@keyframes sending {
+  0% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-4px); opacity: 0.5; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.sending { animation: sending 0.4s ease; }
+
+
+/* ─────────────────────────────────────────
+   exeLook skin (Outlook-inspired, not identical)
+   ───────────────────────────────────────── */
+:root{
+  --bg:       #f6f7fb;
+  --surface:  #ffffff;
+  --border:   rgba(0,0,0,0.08);
+  --border2:  rgba(0,0,0,0.12);
+  --text:     #1b1a19;
+  --muted:    #605e5c;
+  --faint:    #a19f9d;
+
+  --accent:   #0f6cbd;
+  --accent-soft: rgba(15,108,189,0.10);
+
+  --danger:   #d13438;
+  --danger-soft: rgba(209,52,56,0.10);
+
+  /* Keep existing semantic names used throughout */
+  --red:      var(--danger);
+  --red-soft: var(--danger-soft);
+
+  --tag:      rgba(0,0,0,0.04);
+  --shadow:   0 1px 2px rgba(0,0,0,0.06), 0 10px 26px rgba(0,0,0,0.06);
+  --shadow-lg: 0 18px 60px rgba(0,0,0,0.18);
+}
+
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+}
+
+/* Remove the film grain for a cleaner "client" look */
+body::after{ opacity: 0; }
+
+.titlebar{
+  background: var(--accent);
+  border-bottom: none;
+  padding: 0 14px;
+  gap: 14px;
+}
+.brand{ display:flex; align-items:center; gap: 10px; min-width: 220px; }
+.brand-logo{
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #fff;
+  font-size: 14px;
+}
+.brand-logo::before{
+  content: "✉";
+  display: inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.16);
+  margin-right: 8px;
+  font-size: 12px;
+}
+.brand-sub{
+  color: rgba(255,255,255,0.88);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.title-actions{ display:flex; align-items:center; gap: 8px; }
+.title-btn{
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.92);
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.12s, transform 0.05s;
+}
+.title-btn:hover{ background: rgba(255,255,255,0.18); }
+.title-btn:active{ transform: translateY(1px); }
+.title-btn.danger{
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(209,52,56,0.28);
+}
+.title-btn.danger:hover{ background: rgba(209,52,56,0.38); }
+
+.progress-track{ background: rgba(255,255,255,0.25); }
+.progress-fill{ background: rgba(255,255,255,0.86); }
+.progress-label{ color: rgba(255,255,255,0.92); font-family: inherit; letter-spacing: 0; font-size: 12px; }
+
+.sidebar{ background: var(--surface); }
+.sidebar-heading{ font-family: inherit; letter-spacing: 1.6px; }
+.folder-item.active{ background: var(--accent-soft); color: var(--accent); }
+.badge{ background: var(--accent); font-family: inherit; }
+.badge.zero{ background: rgba(0,0,0,0.25); color:#fff; }
+
+.thread-list-header{ background: var(--surface); }
+.thread-list-title{ font-family: inherit; font-size: 14px; font-weight: 650; }
+.thread-count{ font-family: inherit; font-size: 12px; color: var(--muted); }
+
+.thread-header-row{ display:flex; align-items:flex-end; justify-content: space-between; gap: 10px; }
+
+.thread-controls{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.thread-search{
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  outline: none;
+}
+.thread-search:focus{ border-color: rgba(15,108,189,0.55); box-shadow: 0 0 0 3px rgba(15,108,189,0.12); }
+.clear-search{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+.clear-search:hover{ background: rgba(0,0,0,0.03); }
+
+.filter-row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.filter-pill{
+  background: rgba(15,108,189,0.10);
+  border: 1px solid rgba(15,108,189,0.18);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.filter-clear{
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.unread-dot{ background: var(--accent); }
+
+.thread-item.active{ background: rgba(15,108,189,0.08); }
+.law-pill{
+  background: rgba(15,108,189,0.10);
+  border-color: rgba(15,108,189,0.18);
+  color: var(--accent);
+}
+.law-pill:hover{ background: rgba(15,108,189,0.14); }
+.law-pill::before{ content: "i"; font-weight: 700; }
+
+.send-btn{
+  background: var(--accent);
+  border: none;
+}
+.send-btn:hover{ background: #0b5ca6; }
+
+/* Intro disclaimer */
+.intro-disclaimer{
+  display: inline-block;
+  margin-top: 10px;
+  color: rgba(255,255,255,0.45);
+}
+
+/* Help overlay */
+#help-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 800;
+}
+#help-overlay.show{ display:flex; }
+.help-card{
+  width: 520px;
+  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.help-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.help-title{ font-size: 16px; font-weight: 750; color: var(--text); }
+.help-sub{ font-size: 12px; color: var(--muted); margin-top: 2px; }
+.help-close{
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--muted);
+}
+.help-close:hover{ background: rgba(0,0,0,0.03); }
+
+.help-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  padding: 14px 16px 12px;
+}
+.help-row{ display:flex; align-items:center; gap: 10px; font-size: 12.5px; color: var(--text); }
+.k{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 42px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.02);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.help-note{
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+
+
+.law-tag.active{ background: var(--accent-soft); color: var(--accent); }
+.law-tag.active .law-dot{ background: var(--accent); }
+
+/* Decision badge in thread list */
+.decision-pill{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  border: 1px solid var(--border);
+  width: fit-content;
+}
+.decision-pill::before{
+  content:"";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+.decision-pill.report{ background: var(--green-soft); color: var(--green); border-color: rgba(26,92,56,0.18); }
+.decision-pill.leak{ background: var(--danger-soft); color: var(--danger); border-color: rgba(209,52,56,0.18); }
+.decision-pill.silence{ background: var(--amber-soft); color: var(--amber); border-color: rgba(138,96,0,0.18); }
+
+/* Toast */
+.toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  box-shadow: var(--shadow);
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.toast.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro-overlay">
+  <div class="intro-inner">
+    <div class="intro-logo">Avery's Inbox — BTEC IT Unit 1</div>
+    <div class="intro-title">Twenty emails.<br>No right answers.</div>
+    <div class="intro-body">
+      You work in IT. Over the next few weeks, messages arrive in your inbox — from colleagues, automated systems, regulators, journalists. Each one puts you in the middle of a situation you didn't choose.<br><br>
+      <strong>You will decide what to do.</strong> Who you tell. Whether to act. Whether to stay silent. The law will be available to read before you decide — but the law doesn't always point in one direction.
+    </div>
+    <div class="intro-note">
+      Covers: DPA 2018 · UK GDPR · Computer Misuse Act 1990 · RIPA 2000 · FOI Act 2000<br>
+      Copyright, Designs &amp; Patents Act 1988 · Health &amp; Safety at Work Act 1974 · PIDA 1998<br>
+      <span class="intro-disclaimer">exeLook is a fictional parody interface for education. Not affiliated with Microsoft or Outlook.</span>
+    </div>
+    <button class="intro-btn" onclick="loadScenariosThenStart()">Open inbox →</button>
+  </div>
+</div>
+
+<!-- TITLEBAR -->
+<div class="titlebar">
+  <div class="brand">
+    <div class="brand-logo" aria-label="exeLook">exeLook</div>
+    <div class="brand-sub">Avery's Inbox</div>
+  </div>
+
+  <div class="title-actions">
+    <button class="title-btn" id="btn-help" type="button" title="Keyboard shortcuts">Help</button>
+    <button class="title-btn danger" id="btn-reset" type="button" title="Reset progress">Reset</button>
+  </div>
+
+  <div class="progress-wrap" aria-label="Progress">
+    <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+    <div class="progress-label" id="prog-label">0 / 10</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Mailbox</div>
+    <div class="folder-item active" id="folder-inbox" data-folder="inbox">
+      <div class="folder-left"><span class="folder-icon">📥</span>Inbox</div>
+      <div class="badge" id="inbox-badge">10</div>
+    </div>
+    <div class="folder-item" id="folder-sent" data-folder="sent">
+      <div class="folder-left"><span class="folder-icon">📤</span>Sent</div>
+      <div class="badge zero" id="sent-badge">0</div>
+    </div>
+    <div class="folder-item" id="folder-archive" data-folder="archive">
+      <div class="folder-left"><span class="folder-icon">🗂️</span>Archive</div>
+    </div>
+  </div>
+  <hr class="sidebar-divider">
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Legislation Covered</div>
+    <div id="law-tags"></div>
+  </div>
+  <div class="score-display">
+    <div class="score-heading">Your Decisions</div>
+    <div class="score-row">
+      <span class="score-name">Official channels</span>
+      <div class="score-bar-wrap"><div class="score-bar bar-report" id="bar-report"></div></div>
+      <span class="score-n" id="n-report">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-name">Leaked / bypassed</span>
+      <div class="score-bar-wrap"><div class="score-bar bar-leak" id="bar-leak"></div></div>
+      <span class="score-n" id="n-leak">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-name">Stayed silent</span>
+      <div class="score-bar-wrap"><div class="score-bar bar-silence" id="bar-silence"></div></div>
+      <span class="score-n" id="n-silence">0</span>
+    </div>
+  </div>
+</div>
+
+<!-- THREAD LIST -->
+<div class="thread-list">
+  <div class="thread-list-header">
+    <div class="thread-header-row">
+      <div class="thread-list-title" id="thread-list-title">Inbox</div>
+      <div class="thread-meta-row">
+        <span class="thread-count" id="thread-count">10 unread</span>
+      </div>
+    </div>
+    <div class="thread-controls">
+      <input class="thread-search" id="thread-search" type="search" placeholder="Search messages…" autocomplete="off" aria-label="Search messages">
+      <button class="clear-search" id="clear-search" type="button" title="Clear search" aria-label="Clear search">×</button>
+    </div>
+    <div class="filter-row" id="filter-row" style="display:none">
+      <span class="filter-pill" id="filter-pill"></span>
+      <button class="filter-clear" id="filter-clear" type="button">Clear filter</button>
+    </div>
+  </div>
+  <div id="thread-container"></div></div>
+</div>
+
+<!-- EMAIL VIEW -->
+<div class="email-view" id="email-view">
+  <div class="email-top" id="email-top">
+    <div class="email-subject-line" style="color:var(--faint);font-style:normal;font-size:14px">Select a message from your inbox.</div>
+  </div>
+  <div class="email-body-scroll" id="email-body"></div>
+  <div class="reply-panel" id="reply-panel" style="display:none">
+    <div class="reply-heading">How do you respond?</div>
+    <div class="reply-options-wrap" id="reply-options-wrap">
+      <div class="reply-options" id="reply-options"></div>
+    </div>
+    <div class="send-row">
+      <button class="send-btn" id="send-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEGISLATION PANEL (right-hand column) -->
+<div class="leg-panel">
+  <div class="outcome-panel" id="outcome-panel">
+    <div class="outcome-card" id="outcome-card">
+      <div class="outcome-top">
+        <div class="outcome-law-label" id="out-law-label"></div>
+        <div class="outcome-sent-to" id="out-sent-to"></div>
+        <div class="outcome-title" id="out-title"></div>
+        <div class="timestamp-badge" id="out-timestamp">48 hrs later</div>
+      </div>
+      <div class="outcome-immediate">
+        <div class="outcome-section-label">Immediate</div>
+        <div class="outcome-body-text" id="out-immediate"></div>
+      </div>
+      <div class="outcome-later">
+        <div class="later-label">Six months later</div>
+        <div class="later-text" id="out-later"></div>
+      </div>
+      <div class="outcome-law-note">
+        <div class="outcome-law-note-label">What the law actually says</div>
+        <div class="outcome-law-note-text" id="out-law-note"></div>
+      </div>
+      <div class="outcome-footer">
+        <button class="next-btn" id="next-btn">Next message</button>
+      </div>
+    </div>
+  </div>
+  <div class="leg-header" id="leg-header">
+    <div class="leg-title">Legislation</div>
+    <div class="leg-act-name" id="leg-act-name" style="color:var(--faint);font-size:12px">Open a message to see relevant law</div>
+  </div>
+  <div class="leg-body" id="leg-body">
+    <div class="empty-state">
+      <div class="empty-icon">⚖️</div>
+      <div class="empty-text">Relevant legislation will appear here when you open a message.<br><br>Read it before you decide — or don't.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOVER PREVIEW (toast near cursor) -->
+<div class="hover-preview" id="hover-preview"></div>
+
+<!-- PROFILE OVERLAY -->
+<div id="profile-overlay">
+  <div class="profile-inner">
+    <div class="profile-eyebrow">Avery's Inbox — Your Decision Profile</div>
+    <div class="profile-title" id="prof-title"></div>
+    <div class="profile-summary" id="prof-summary"></div>
+    <div class="profile-stats" id="prof-stats"></div>
+    <div class="profile-observations">
+      <div class="profile-obs-title">Patterns in your decisions</div>
+      <div id="prof-observations"></div>
+    </div>
+    <div class="profile-laws">
+      <div class="profile-laws-title">Legislation encountered</div>
+      <div id="prof-laws"></div>
+    </div>
+    <button class="restart-btn" onclick="restartApp()">Start again</button>
+  </div>
+</div>
+
+
+
+<!-- HELP OVERLAY -->
+<div id="help-overlay" aria-hidden="true">
+  <div class="help-card" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <div class="help-top">
+      <div>
+        <div class="help-title">exeLook shortcuts</div>
+        <div class="help-sub">Avery's Inbox — quick keys for faster play</div>
+      </div>
+      <button class="help-close" id="help-close" type="button" aria-label="Close help">×</button>
+    </div>
+    <div class="help-grid">
+      <div class="help-row"><span class="k">J</span><span>Next message</span></div>
+      <div class="help-row"><span class="k">K</span><span>Previous message</span></div>
+      <div class="help-row"><span class="k">Enter</span><span>Open selected message</span></div>
+      <div class="help-row"><span class="k">1</span><span>Inbox</span></div>
+      <div class="help-row"><span class="k">2</span><span>Sent</span></div>
+      <div class="help-row"><span class="k">3</span><span>Archive</span></div>
+      <div class="help-row"><span class="k">/</span><span>Focus search</span></div>
+      <div class="help-row"><span class="k">Esc</span><span>Close overlays / clear search</span></div>
+    </div>
+    <div class="help-note">
+      exeLook is a fictional parody interface for an educational scenario set. Not affiliated with Microsoft or Outlook.
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+
+// ─────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────
+const LAWS = [
+  'DPA 2018 / UK GDPR',
+  'Computer Misuse Act 1990',
+  'RIPA 2000',
+  'FOI Act 2000',
+  'CDPA 1988',
+  'Health & Safety at Work Act 1974',
+  'PIDA 1998',
+  'DPA + RIPA (conflict)',
+  'DPA + FOI (conflict)',
+  'CMA 1990 (retrospective)'
+];
+
+let SCENARIOS = [];
+
+function loadScenariosThenStart() {
+  if (SCENARIOS.length) { startApp(); return; }
+  fetch('scenarios.json').then(r => r.json()).then(data => {
+    SCENARIOS.push(...data);
+    startApp();
+  }).catch(e => console.error('Failed to load scenarios', e));
+}
+window.loadScenariosThenStart = loadScenariosThenStart;
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('scenarios.json').then(r => r.json()).then(data => {
+    SCENARIOS.push(...data);
+  }).catch(() => {});
+});
+
+
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+const STORAGE_KEY = 'averyInboxState_v1';
+let currentFolder = 'inbox';      // inbox | sent | archive
+let activeLawFilter = null;       // e.g. 'DPA 2018 / UK GDPR'
+let searchTerm = '';              // thread search query
+
+let completedCount = 0;
+let currentScenario = null;
+let selectedChoice = null;
+let decisions = []; // {scenarioId, type: 'report'|'leak'|'silence', law}
+let sentCount = 0;
+
+const counters = { report: 0, leak: 0, silence: 0 };
+
+// ─────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────
+function startApp() {
+  document.getElementById('intro-overlay').style.display = 'none';
+
+  // Restore progress if present
+  loadState();
+
+  // Build UI
+  buildSidebar();
+  buildThreadList();
+  wireUI();
+
+  // Initial render
+  updateScores();
+  updateProgress();
+  switchFolder('inbox', true);
+
+  // If completed, jump straight to the profile
+  if (decisions.length >= SCENARIOS.length) {
+    showProfile();
+    return;
+  }
+
+  // Open first unread scenario
+  const firstUnreadIdx = SCENARIOS.findIndex(s => !decisions.find(d => d.scenarioId === s.id));
+  openScenario(firstUnreadIdx !== -1 ? firstUnreadIdx : 0);
+}
+
+
+function buildSidebar() {
+  const container = document.getElementById('law-tags');
+  container.innerHTML = '';
+
+  LAWS.forEach(law => {
+    const el = document.createElement('div');
+    el.className = 'law-tag';
+    el.id = 'law-' + law.replace(/\s+/g,'_');
+    el.innerHTML = `<div class="law-dot"></div>${law}`;
+
+    el.addEventListener('click', () => toggleLawFilter(law));
+    container.appendChild(el);
+  });
+
+  // Mark laws you've already encountered as "covered"
+  decisions.forEach(d => {
+    const lawEl = document.getElementById('law-' + d.law.replace(/\s+/g,'_'));
+    if (lawEl) lawEl.classList.add('covered');
+  });
+
+  syncLawTagActive();
+}
+
+
+function buildThreadList() {
+  const container = document.getElementById('thread-container');
+  container.innerHTML = '';
+
+  SCENARIOS.forEach((sc, i) => {
+    const el = document.createElement('div');
+    el.className = 'thread-item';
+    el.id = `thread-${i}`;
+    el.dataset.scenarioId = sc.id;
+
+    const decision = decisions.find(d => d.scenarioId === sc.id);
+    if (decision) el.classList.add('read');
+
+    el.innerHTML = `
+      <div class="unread-dot"></div>
+      <div class="th-from">
+        <span>${sc.from}</span>
+        <span class="th-time">${sc.time}</span>
+      </div>
+      <div class="th-subject">${sc.subject}</div>
+      <span class="th-tag">${sc.law}</span>
+      ${decision ? `<div class="decision-pill ${decision.type}">${decisionLabel(decision.type)}</div>` : ``}
+    `;
+
+    el.addEventListener('click', () => openScenario(i));
+    container.appendChild(el);
+  });
+}
+
+
+
+// ─────────────────────────────────────────
+// exeLook UI helpers
+// ─────────────────────────────────────────
+function decisionLabel(type) {
+  if (type === 'report') return 'Reported';
+  if (type === 'leak') return 'Leaked';
+  return 'No reply';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ decisions }));
+  } catch (e) {
+    // Ignore (private mode / storage disabled)
+  }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.decisions)) return false;
+
+    decisions = parsed.decisions
+      .filter(d => typeof d?.scenarioId === 'number' && (d.type === 'report' || d.type === 'leak' || d.type === 'silence') && typeof d?.law === 'string');
+
+    // Rebuild counters
+    counters.report = 0;
+    counters.leak = 0;
+    counters.silence = 0;
+    decisions.forEach(d => { counters[d.type]++; });
+
+    sentCount = decisions.length;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function wireUI() {
+  // Folders
+  ['inbox','sent','archive'].forEach(f => {
+    const el = document.getElementById('folder-' + f);
+    if (!el) return;
+    el.addEventListener('click', () => switchFolder(f));
+  });
+
+  // Search
+  const search = document.getElementById('thread-search');
+  const clear = document.getElementById('clear-search');
+  if (search) {
+    search.addEventListener('input', () => {
+      searchTerm = search.value.trim();
+      renderThreads();
+    });
+  }
+  if (clear) {
+    clear.addEventListener('click', () => {
+      if (search) search.value = '';
+      searchTerm = '';
+      renderThreads();
+      showToast('Search cleared');
+    });
+  }
+
+  // Filter clear
+  const filterClear = document.getElementById('filter-clear');
+  if (filterClear) {
+    filterClear.addEventListener('click', () => {
+      activeLawFilter = null;
+      updateFilterRow();
+      syncLawTagActive();
+      renderThreads();
+      showToast('Filter cleared');
+    });
+  }
+
+  // Help modal
+  const helpBtn = document.getElementById('btn-help');
+  const help = document.getElementById('help-overlay');
+  const helpClose = document.getElementById('help-close');
+  if (helpBtn && help) helpBtn.addEventListener('click', () => { help.classList.add('show'); help.setAttribute('aria-hidden', 'false'); });
+  if (helpClose && help) helpClose.addEventListener('click', () => { help.classList.remove('show'); help.setAttribute('aria-hidden', 'true'); });
+  if (help) help.addEventListener('click', (e) => { if (e.target === help) { help.classList.remove('show'); help.setAttribute('aria-hidden', 'true'); } });
+
+  // Reset
+  const resetBtn = document.getElementById('btn-reset');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      const ok = confirm("Reset Avery's Inbox? This clears your progress.");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+      location.reload();
+    });
+  }
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+    const typing = (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable);
+
+    // Always allow Esc to close things
+    if (e.key === 'Escape') {
+      if (closeOverlays()) return;
+      if (search && search.value) {
+        search.value = '';
+        searchTerm = '';
+        renderThreads();
+        showToast('Search cleared');
+      }
+      return;
+    }
+
+    if (typing) return;
+
+    if (e.key === '/' && search) {
+      e.preventDefault();
+      search.focus();
+      return;
+    }
+
+    if (e.key === '1') return switchFolder('inbox');
+    if (e.key === '2') return switchFolder('sent');
+    if (e.key === '3') return switchFolder('archive');
+
+    if (e.key.toLowerCase() === 'j') { e.preventDefault(); moveSelection(1); }
+    if (e.key.toLowerCase() === 'k') { e.preventDefault(); moveSelection(-1); }
+    if (e.key === 'Enter') { e.preventDefault(); if (currentScenario) openScenario(currentScenario.id); }
+  });
+}
+
+function closeOverlays() {
+  const outcome = document.getElementById('outcome-panel');
+  const profile = document.getElementById('profile-overlay');
+  const help = document.getElementById('help-overlay');
+
+  // Close in a sensible order
+  if (help?.classList.contains('show')) { help.classList.remove('show'); help.setAttribute('aria-hidden', 'true'); return true; }
+  if (outcome?.classList.contains('show')) { outcome.classList.remove('show'); return true; }
+  if (profile?.classList.contains('show')) { profile.classList.remove('show'); return true; }
+  return false;
+}
+
+function switchFolder(folder, silent = false) {
+  currentFolder = folder;
+
+  document.querySelectorAll('#folder-inbox, #folder-sent, #folder-archive').forEach(el => el.classList.remove('active'));
+  const active = document.getElementById('folder-' + folder);
+  if (active) active.classList.add('active');
+
+  const title = document.getElementById('thread-list-title');
+  if (title) title.textContent = folder === 'inbox' ? 'Inbox' : (folder === 'sent' ? 'Sent' : 'Archive');
+
+  renderThreads();
+
+  if (!silent) showToast(folder === 'inbox' ? 'Inbox' : (folder === 'sent' ? 'Sent' : 'Archive'));
+}
+
+function toggleLawFilter(law) {
+  activeLawFilter = (activeLawFilter === law) ? null : law;
+  updateFilterRow();
+  syncLawTagActive();
+  renderThreads();
+  showToast(activeLawFilter ? ('Filter: ' + activeLawFilter) : 'Filter cleared');
+}
+
+function syncLawTagActive() {
+  document.querySelectorAll('.law-tag').forEach(el => el.classList.remove('active'));
+  if (!activeLawFilter) return;
+  const active = document.getElementById('law-' + activeLawFilter.replace(/\s+/g,'_'));
+  if (active) active.classList.add('active');
+}
+
+function updateFilterRow() {
+  const row = document.getElementById('filter-row');
+  const pill = document.getElementById('filter-pill');
+  if (!row || !pill) return;
+
+  if (activeLawFilter) {
+    row.style.display = 'flex';
+    pill.textContent = 'Law: ' + activeLawFilter;
+  } else {
+    row.style.display = 'none';
+    pill.textContent = '';
+  }
+}
+
+function renderThreads() {
+  let visible = 0;
+
+  SCENARIOS.forEach((sc, i) => {
+    const el = document.getElementById(`thread-${i}`);
+    if (!el) return;
+
+    const decision = decisions.find(d => d.scenarioId === sc.id);
+    const inFolder = (currentFolder === 'archive') ||
+      (currentFolder === 'inbox' && !decision) ||
+      (currentFolder === 'sent' && !!decision);
+
+    const inLaw = !activeLawFilter || sc.law === activeLawFilter;
+
+    const q = (searchTerm || '').toLowerCase();
+    const hay = (sc.from + ' ' + sc.subject + ' ' + sc.law).toLowerCase();
+    const inSearch = !q || hay.includes(q);
+
+    const show = inFolder && inLaw && inSearch;
+    el.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  updateThreadHeader(visible);
+
+  // If the current message is hidden, jump to the first visible
+  if (currentScenario) {
+    const activeThread = document.getElementById(`thread-${currentScenario.id}`);
+    if (activeThread && activeThread.style.display === 'none') openFirstVisible();
+  } else {
+    openFirstVisible();
+  }
+}
+
+function openFirstVisible() {
+  const first = SCENARIOS.findIndex((sc, i) => {
+    const el = document.getElementById(`thread-${i}`);
+    return el && el.style.display !== 'none';
+  });
+  if (first !== -1) openScenario(first);
+}
+
+function moveSelection(delta) {
+  const visibleIdxs = SCENARIOS
+    .map((_, i) => i)
+    .filter(i => {
+      const el = document.getElementById(`thread-${i}`);
+      return el && el.style.display !== 'none';
+    });
+
+  if (!visibleIdxs.length) return;
+
+  const current = currentScenario ? currentScenario.id : visibleIdxs[0];
+  let pos = visibleIdxs.indexOf(current);
+  if (pos === -1) pos = 0;
+
+  const nextPos = Math.max(0, Math.min(visibleIdxs.length - 1, pos + delta));
+  openScenario(visibleIdxs[nextPos]);
+}
+
+function updateThreadHeader(visibleCount) {
+  const el = document.getElementById('thread-count');
+  if (!el) return;
+
+  if (currentFolder === 'inbox') el.textContent = `${visibleCount} unread`;
+  else el.textContent = `${visibleCount} messages`;
+}
+
+// Slight UX: if there's saved progress, offer "Resume" on the intro screen.
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (localStorage.getItem(STORAGE_KEY)) {
+      const btn = document.querySelector('.intro-btn');
+      if (btn) btn.textContent = 'Resume inbox →';
+    }
+  } catch (e) {}
+});
+
+
+// ─────────────────────────────────────────
+// OPEN A SCENARIO
+// ─────────────────────────────────────────
+function openScenario(idx) {
+  // Deactivate previous
+  document.querySelectorAll('.thread-item').forEach(el => el.classList.remove('active'));
+  document.getElementById(`thread-${idx}`).classList.add('active');
+  document.getElementById(`thread-${idx}`).classList.remove('unread-dot-show');
+
+  currentScenario = SCENARIOS[idx];
+  selectedChoice = null;
+
+  // Email header
+  const top = document.getElementById('email-top');
+  top.innerHTML = `
+    <div class="email-subject-line">${currentScenario.subject}</div>
+    <div class="email-from-row">
+      <div class="avatar">${currentScenario.avatar}</div>
+      <div class="from-block">
+        <div class="from-name">${currentScenario.from}</div>
+        <div class="from-addr">${currentScenario.fromEmail}</div>
+      </div>
+      <div class="email-timestamp">${currentScenario.time}</div>
+    </div>
+    <div class="law-pill" onclick="scrollToLeg()" title="View legislation">${currentScenario.law}</div>
+  `;
+
+  // Email body
+  const body = document.getElementById('email-body');
+  body.innerHTML = currentScenario.body.map(p => `<p>${p}</p>`).join('')
+    + (currentScenario.sig ? `<div class="email-sig">${currentScenario.sig}</div>` : '');
+
+  // Reply panel
+  const panel = document.getElementById('reply-panel');
+  if (!decisions.find(d => d.scenarioId === currentScenario.id)) {
+    panel.style.display = 'block';
+    buildReplyOptions(currentScenario);
+  } else {
+    panel.style.display = 'none';
+  }
+
+  // Legislation panel
+  buildLegPanel(currentScenario);
+
+  // Reset send button and hover preview
+  document.getElementById('send-btn').classList.remove('ready');
+  document.getElementById('hover-preview').classList.remove('show');
+}
+
+function positionHoverPreview(el, clientX, clientY) {
+  const offset = 14;
+  const pad = 12;
+  let left = clientX + offset;
+  let top = clientY + offset;
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+  el.style.right = 'auto';
+  el.style.bottom = 'auto';
+  const rect = el.getBoundingClientRect();
+  const w = rect.width;
+  const h = rect.height;
+  if (left + w + pad > window.innerWidth) left = window.innerWidth - w - pad;
+  if (top + h + pad > window.innerHeight) top = window.innerHeight - h - pad;
+  if (left < pad) left = pad;
+  if (top < pad) top = pad;
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+}
+
+function buildReplyOptions(sc) {
+  const container = document.getElementById('reply-options');
+  const prev = document.getElementById('hover-preview');
+  container.innerHTML = '';
+
+  let hidePreviewTimer = null;
+  let showPreviewTimer = null;
+  let lastMouseEvent = null;
+  function scheduleHidePreview(keepIfSelected) {
+    if (showPreviewTimer) clearTimeout(showPreviewTimer);
+    showPreviewTimer = null;
+    if (hidePreviewTimer) clearTimeout(hidePreviewTimer);
+    hidePreviewTimer = setTimeout(() => {
+      hidePreviewTimer = null;
+      if (keepIfSelected && selectedChoice !== null) return;
+      prev.classList.remove('show');
+    }, 140);
+  }
+  function showPreview(text) {
+    if (hidePreviewTimer) clearTimeout(hidePreviewTimer);
+    hidePreviewTimer = null;
+    prev.textContent = text;
+    prev.classList.add('show');
+    if (lastMouseEvent) positionHoverPreview(prev, lastMouseEvent.clientX, lastMouseEvent.clientY);
+  }
+  function scheduleShowPreview(text) {
+    if (showPreviewTimer) clearTimeout(showPreviewTimer);
+    showPreviewTimer = setTimeout(() => showPreview(text), 80);
+  }
+
+  sc.choices.forEach((choice, i) => {
+    const el = document.createElement('div');
+    el.className = 'reply-opt';
+    el.innerHTML = `
+      <div class="opt-radio"></div>
+      <div class="opt-body">
+        <div class="opt-to">To: ${choice.to}</div>
+        <div class="opt-text">${choice.text}</div>
+      </div>
+    `;
+    el.addEventListener('mouseenter', (e) => {
+      lastMouseEvent = e;
+      scheduleShowPreview(choice.hoverInfo);
+    });
+    el.addEventListener('mousemove', (e) => {
+      lastMouseEvent = e;
+      if (prev.classList.contains('show')) positionHoverPreview(prev, e.clientX, e.clientY);
+    });
+    el.addEventListener('mouseleave', () => {
+      if (showPreviewTimer) clearTimeout(showPreviewTimer);
+      showPreviewTimer = null;
+      scheduleHidePreview(true);
+    });
+    el.addEventListener('click', (e) => {
+      document.querySelectorAll('.reply-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedChoice = i;
+      prev.textContent = choice.hoverInfo;
+      positionHoverPreview(prev, e.clientX, e.clientY);
+      document.getElementById('send-btn').classList.add('ready');
+    });
+    container.appendChild(el);
+  });
+
+  document.getElementById('send-btn').onclick = () => {
+    if (selectedChoice === null) return;
+    sendChoice(sc, sc.choices[selectedChoice]);
+  };
+}
+
+function buildLegPanel(sc) {
+  document.getElementById('leg-act-name').textContent = sc.legTitle;
+  const body = document.getElementById('leg-body');
+  body.innerHTML = sc.legBlocks.map(b => `
+    <div class="leg-block">
+      <div class="leg-block-title">${b.title}</div>
+      <div class="leg-block-text">${b.text}</div>
+    </div>
+  `).join('') + `
+    <div class="leg-obligations">
+      <div class="leg-ob-title">Key obligations in this scenario</div>
+      ${sc.legBlocks.map(b => `<div class="leg-ob-item">${b.title.split('—')[0].trim()}</div>`).join('')}
+    </div>
+    <div class="leg-question">${sc.legQuestion}</div>
+  `;
+}
+
+// ─────────────────────────────────────────
+// SEND
+// ─────────────────────────────────────────
+function sendChoice(sc, choice) {
+  // Prevent double-sends if you reopen a completed message
+  if (decisions.find(d => d.scenarioId === sc.id)) return;
+
+  // Record
+  decisions.push({ scenarioId: sc.id, type: choice.type, law: sc.law });
+  counters[choice.type]++;
+  sentCount++;
+
+  // Mark thread as read/done + add a decision badge
+  const thread = document.getElementById(`thread-${sc.id}`);
+  if (thread) {
+    thread.classList.add('read');
+    thread.classList.remove('active');
+
+    if (!thread.querySelector('.decision-pill')) {
+      const badge = document.createElement('div');
+      badge.className = `decision-pill ${choice.type}`;
+      badge.textContent = decisionLabel(choice.type);
+      thread.appendChild(badge);
+    }
+  }
+
+  // Update sidebar scores
+  updateScores();
+  updateProgress();
+
+  // Mark legislation as covered
+  const lawEl = document.getElementById('law-' + sc.law.replace(/\s+/g,'_'));
+  if (lawEl) lawEl.classList.add('covered');
+
+  // Persist + re-render threads (folder/search/filter may hide/show items)
+  saveState();
+  syncLawTagActive();
+  updateFilterRow();
+  renderThreads();
+
+  // Show outcome
+  showOutcome(sc, choice);
+}
+
+
+function showOutcome(sc, choice) {
+  document.getElementById('out-law-label').textContent = sc.law;
+  document.getElementById('out-sent-to').textContent = `Sent to: ${choice.to}`;
+  document.getElementById('out-title').textContent = choice.to.includes('Nobody') || choice.to.includes('don\'t reply')
+    ? 'You stayed silent.'
+    : 'Message sent.';
+  document.getElementById('out-immediate').textContent = choice.immediate;
+  document.getElementById('out-later').textContent = choice.later;
+  document.getElementById('out-law-note').textContent = choice.lawNote;
+
+  document.getElementById('outcome-panel').classList.add('show');
+
+  document.getElementById('next-btn').onclick = () => {
+    document.getElementById('outcome-panel').classList.remove('show');
+    document.getElementById('reply-panel').style.display = 'none';
+
+    // Refresh the list (Inbox view hides completed items)
+    renderThreads();
+
+    if (decisions.length >= SCENARIOS.length) {
+      showProfile();
+      return;
+    }
+
+    // Auto-advance to next unread scenario
+    const nextIdx = SCENARIOS.findIndex(s => !decisions.find(d => d.scenarioId === s.id));
+    if (nextIdx !== -1) openScenario(nextIdx);
+  };
+}
+
+// ─────────────────────────────────────────
+// SCORE + PROGRESS
+// ─────────────────────────────────────────
+function updateScores() {
+  const total = Math.max(decisions.length, 1);
+  const maxW = 100;
+
+  ['report','leak','silence'].forEach(type => {
+    const n = counters[type];
+    const pct = (n / total) * maxW;
+    document.getElementById(`bar-${type}`).style.width = pct + '%';
+    document.getElementById(`n-${type}`).textContent = n;
+  });
+
+  const rem = SCENARIOS.length - decisions.length;
+  document.getElementById('inbox-badge').textContent = rem;
+  document.getElementById('inbox-badge').className = rem === 0 ? 'badge zero' : 'badge';
+  document.getElementById('sent-badge').textContent = decisions.length;
+}
+
+function updateProgress() {
+  const pct = (decisions.length / SCENARIOS.length) * 100;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${decisions.length} / ${SCENARIOS.length}`;
+}
+
+// ─────────────────────────────────────────
+// MORAL PROFILE
+// ─────────────────────────────────────────
+function showProfile() {
+  const r = counters.report, l = counters.leak, s = counters.silence;
+  const total = r + l + s;
+
+  // Determine dominant tendency
+  let title, summary;
+  const sorted = [['report',r],['leak',l],['silence',s]].sort((a,b) => b[1]-a[1]);
+  const dominant = sorted[0][0];
+  const second = sorted[1][0];
+
+  if (dominant === 'report' && r >= 6) {
+    title = 'The Institutionalist';
+    summary = `You reached for the official channel in ${r} out of 10 situations. You trust institutions — or at least you trust the process. Most of the time that\'s not naivety. Institutions do sometimes work. But the official channel is also the one the institution controls. You might want to think about who benefits when you stay inside the system.`;
+  } else if (dominant === 'leak' && l >= 5) {
+    title = 'The Exposer';
+    summary = `You bypassed the system ${l} times. You probably have a clear sense of when the rules are protecting people and when they\'re protecting the organisation. The question is whether the harm you caused in bypassing was worth it each time — and whether the people affected had a say in that calculation.`;
+  } else if (dominant === 'silence' && s >= 5) {
+    title = 'The Pragmatist';
+    summary = `You stayed silent ${s} times. That\'s not cowardice — it\'s an assessment of odds and consequences. The question isn\'t whether you were wrong. The question is what silence costs the next person who ends up in the same situation, and whether they\'ll get a choice.`;
+  } else if (dominant === 'report' && second === 'leak') {
+    title = 'The Reluctant Channeller';
+    summary = `You mostly used official channels, but went around them ${l} times. Those ${l} exceptions are probably the most interesting part of your profile. What was different about those situations? The answer might tell you more about your actual values than the ${r} times you did the expected thing.`;
+  } else if (dominant === 'leak' && second === 'report') {
+    title = 'The Selective Exposer';
+    summary = `You leaked more than you reported. But you did use official channels ${r} times — which means you haven\'t written the system off entirely. You appear to make a distinction. What\'s the principle? If you can articulate it, it\'s a value. If you can\'t, it might be a mood.`;
+  } else {
+    title = 'The Uncommitted';
+    summary = `You spread your choices roughly evenly — ${r} official, ${l} bypassed, ${s} silent. That could mean genuine case-by-case reasoning, or it could mean the situations felt similar but your responses varied anyway. Look at the patterns below and see if you can explain them.`;
+  }
+
+  document.getElementById('prof-title').textContent = title;
+  document.getElementById('prof-summary').textContent = summary;
+
+  // Stats
+  document.getElementById('prof-stats').innerHTML = `
+    <div class="stat-box">
+      <div class="stat-n">${r}</div>
+      <div class="stat-label">Official channels — reports to regulators, internal processes</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">${l}</div>
+      <div class="stat-label">Bypassed — leaked, disclosed outside process, went to press</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">${s}</div>
+      <div class="stat-label">Stayed silent — did nothing, deferred, deleted the email</div>
+    </div>
+  `;
+
+  // Observations
+  const obsEl = document.getElementById('prof-observations');
+  const observations = [];
+
+  // Detect patterns
+  const dpaDecisions = decisions.filter(d => d.law.includes('DPA'));
+  const dpaLeak = dpaDecisions.filter(d => d.type === 'leak').length;
+  const dpaReport = dpaDecisions.filter(d => d.type === 'report').length;
+  if (dpaLeak > dpaReport) observations.push('When data protection was the issue, you tended to bypass formal channels. The ICO exists specifically for this — but you preferred faster routes.');
+  if (dpaReport > dpaLeak) observations.push('In data protection scenarios, you consistently chose the regulator over direct disclosure. You appear to trust the ICO, or at least to want the decision off your hands.');
+
+  const safetyDecisions = decisions.filter(d => d.law.includes('Safety') || d.law.includes('CMA'));
+  const safetySilence = safetyDecisions.filter(d => d.type === 'silence').length;
+  if (safetySilence >= 2) observations.push('When physical safety was implicated, you stayed silent more than once. Those are the decisions most likely to have material consequences for people you\'ll never meet.');
+
+  const conflictDecisions = decisions.filter(d => d.law.includes('conflict') || d.law.includes('+'));
+  if (conflictDecisions.length > 0) {
+    const conflictSilence = conflictDecisions.filter(d => d.type === 'silence').length;
+    if (conflictSilence > 0) observations.push('When two laws were in conflict, you tended toward inaction. Legal ambiguity appears to function as a reason not to decide.');
+    else observations.push('When two laws were in conflict, you still made a choice. That suggests you\'re comfortable using judgement when the rulebook doesn\'t resolve the question.');
+  }
+
+  const lastDecision = decisions[decisions.length - 1];
+  if (lastDecision && lastDecision.type === 'silence') observations.push('Your final decision — when you had the whole picture — was silence. That\'s worth sitting with.');
+  if (lastDecision && lastDecision.type === 'leak') observations.push('Your final decision — when you had the whole picture — was to go around the system entirely. By that point you\'d seen enough to know the system\'s limits.');
+
+  if (observations.length === 0) observations.push('No strong patterns emerged. Your decisions were case-specific enough that the overall picture is unclear. That may be principled — or it may mean the principles weren\'t consistent.');
+
+  obsEl.innerHTML = observations.map(o => `
+    <div class="observation">
+      <div class="obs-bullet">—</div>
+      <div class="obs-text">${o}</div>
+    </div>
+  `).join('');
+
+  // Laws summary
+  const lawsEl = document.getElementById('prof-laws');
+  const lawGroups = {};
+  decisions.forEach(d => {
+    if (!lawGroups[d.law]) lawGroups[d.law] = [];
+    lawGroups[d.law].push(d.type);
+  });
+
+  const lawNotes = {
+    'DPA 2018 / UK GDPR': 'Governs processing of personal and special category data. Rights belong to individuals. The ICO is the regulator.',
+    'Computer Misuse Act 1990': 'Criminalises unauthorised access regardless of intent or outcome. PIDA may protect disclosure — not the access itself.',
+    'RIPA 2000': 'Permits employer monitoring if an AUP provides implied consent. Purpose and proportionality matter alongside legality.',
+    'FOI Act 2000': 'Creates a presumption of disclosure. Requesters\' motives are irrelevant. Exemptions are narrow and subject to ICO challenge.',
+    'CDPA 1988': 'Protects copyright uniformly — size, purpose, and impact of infringer are not legal mitigations.',
+    'Health & Safety at Work Act 1974': 'Employers must maintain safe systems of work. HSE is the prescribed regulator. PIDA protects H&S disclosures.',
+    'DPA + RIPA (conflict)': 'Monitoring may be RIPA-lawful but the resulting data is still subject to DPA restrictions on further processing.',
+    'CMA 1990 (retrospective)': 'Past unauthorised access does not disappear. New legal obligations (witness statements) can interact with old exposures.',
+    'DPA + FOI (conflict)': 'FOI s.40 resolves most DPA/FOI conflicts: personal data is withheld where disclosure would breach GDPR. The conflict is usually apparent, not real.',
+    'PIDA 1998 — The Long View': 'Protects qualifying disclosures in good faith. Creates a right, not a duty. Protection is retrospective — it does not prevent detriment, it provides remedy.'
+  };
+
+  lawsEl.innerHTML = Object.entries(lawGroups).map(([law, types]) => {
+    const note = lawNotes[law] || '';
+    const dominant = types.sort((a,b) => types.filter(t=>t===b).length - types.filter(t=>t===a).length)[0];
+    const dominantLabel = dominant === 'report' ? 'You used official channels' : dominant === 'leak' ? 'You bypassed the process' : 'You stayed silent';
+    return `
+      <div class="law-result">
+        <div class="law-result-name">${law}</div>
+        <div class="law-result-text"><em>${dominantLabel}.</em> ${note}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('profile-overlay').classList.add('show');
+}
+
+function restartApp() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  location.reload();
+}
+
+function scrollToLeg() {
+  document.getElementById('leg-body').scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
+</body>
+</html>
